@@ -1,0 +1,13 @@
+diff a/Logs/Packages-Update.log b/Logs/Packages-Update.log	(rejected hunks)
+@@ -44,7 +44,11 @@
+    com.unity.timeline@1.2.17
+    com.unity.ugui@1.0.0
+  
+++<<<<<<< HEAD
+ +=== Mon Jun 28 19:00:13 2021
+++=======
++ === Mon Jun 28 19:03:11 2021
+++>>>>>>> 02e77cf (버전업글 4.28)
+  
+  Packages were changed.
+  Update Mode: updateDependencies
