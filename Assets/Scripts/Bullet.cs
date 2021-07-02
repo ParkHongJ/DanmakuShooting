@@ -10,5 +10,15 @@ public class Bullet : MonoBehaviour
     public int damage;
     //타겟
     public Transform target;
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("부딪힘");
+        if (other.CompareTag("player"))
+        {
 
+            Debug.Log("콜리전들어감");
+            Destroy(gameObject);
+
+        }
+    }
 }
