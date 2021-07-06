@@ -47,6 +47,20 @@ public class UIManager : MonoBehaviour
         Play_click.SetActive(false);
     }
 
+    public void Quit_Cancel()
+    {
+        Quit_click.SetActive(false);
+    }
+
+    //게임 종료
+    public void ExitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit(); // 어플리케이션 종료
+#endif
+    }
 
     // Start is called before the first frame update
     void Start()
