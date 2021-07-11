@@ -1,0 +1,7 @@
+1	포션 아이템​	Potion_01​	PotionI_01​	40​	설명
+2	지상 1타입 마법책​	MagicBook_01​	MagicBookI_01​	10​	설명
+3	지상 2타입 마법책​	MagicBook_02​	MagicBookI_02​	10​	설명
+4	지상 3타입 마법책​	MagicBook_03​	MagicBookI_03​	10​	설명
+5	공중 1타입 마법책​	MagicBook_11​	MagicBookI_11​	10​	설명
+6	공중 2타입 마법책​	MagicBook_12​	MagicBookI_12​	10​	설명
+7	공중 3타입 마법책​	MagicBook_13​	MagicBookI_13​	10​	설명 

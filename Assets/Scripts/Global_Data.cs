@@ -7,7 +7,10 @@ public class Global_Data : MonoBehaviour
 {
 
     private static Global_Data instance;
-   
+
+    public List<Item> ItemList = new List<Item>();
+    public bool IsIngame = true;    //ingame 여부 확인
+    public bool IsGameOver = false;
     public static Global_Data Instance
     {
         get

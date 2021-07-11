@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public GameObject MainPage;
@@ -11,7 +11,10 @@ public class UIManager : MonoBehaviour
     public GameObject Quit_click;
     public GameObject PlayingUI;
     public GameObject PlayerConversation;
-
+    public GameObject Option_click_Ingame;
+    public GameObject GameoverBlur;
+    public GameObject GameoverT;
+    public GameObject AnyButtonclickT;
     public void ControlMethod_Button()
     {
         ControlMethod_click.SetActive(true);
@@ -42,6 +45,18 @@ public class UIManager : MonoBehaviour
         Option_click.SetActive(false);
     }
 
+    public void Option_X_Ingame()
+    {
+        Option_click_Ingame.SetActive(false);
+    }
+
+    public void Option_GoToMenu()
+    {
+        Option_click_Ingame.SetActive(false);
+        MainPage.SetActive(true);
+        Global_Data.Instance.IsIngame = false;
+    }
+
     public void Play_X()
     {
         Play_click.SetActive(false);
@@ -62,6 +77,8 @@ public class UIManager : MonoBehaviour
 #endif
     }
 
+  
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,6 +88,29 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //게임 중 옵션 클릭 버튼 눌렀는지 확인
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(Global_Data.Instance.IsIngame==true)
+            {
+                if (Option_click_Ingame.activeSelf == false)
+                {
+                    Option_click_Ingame.SetActive(true);
+                }
+            }
+        }
+
+        if(Global_Data.Instance.IsGameOver==true)
+        {
+            GameoverBlur.SetActive(true);
+            GameoverT.SetActive(true);
+            GameoverBlur.GetComponent<Blur>().enabled = true;
+            GameoverT.GetComponent<Blur>().enabled = true;
+        }  
+        if(GameoverT.GetComponent<Blur>().blurok==true)
+        {
+            AnyButtonclickT.SetActive(true);
+            AnyButtonclickT.GetComponent<Blink>().enabled = true;
+        }
     }
 }
