@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class ActtackPattern : MonoBehaviour
 {
+    public enum AttackSkill
+    {
+        Skill_01 = 0,
+        Skill_11,
+        Skill_12,
+        Skill_13,
+        Skill_21,
+        Skill_22,
+        Skill_23
+    }
     enum AttackType
     {
         Ground = 1, //땅인지
@@ -25,6 +35,8 @@ public class ActtackPattern : MonoBehaviour
         Single = 1, //단일
         Multi //범위
     }
+    public AttackSkill attackSkill;
+
     public string name; //이름
     public string variableName; //변수명
     public float objectRange; //객체거리

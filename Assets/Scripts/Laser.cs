@@ -26,14 +26,14 @@ public class Laser : ActtackPattern
         timer += Time.deltaTime;
         if(Input.GetMouseButtonDown(0) && timer >= timeBetweenBullets)
         {
-            Shoot();
+            Attack();
         }
         if (timer >= timeBetweenBullets * effectdisplaytime)
         {
             DisableEffects();
         }
     }
-    void Shoot()
+    public override void Attack() 
     {
         timer = 0f;
         Debug.DrawRay(firePos.position, firePos.forward * 10f, Color.black);
