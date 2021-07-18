@@ -7,7 +7,6 @@ public class Blink : MonoBehaviour
     float time = 0;
     float b_time = 0;
     Color m_color;
-
     private void Start()
     {
         m_color = this.gameObject.GetComponent<Text>().color;

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Image
   - Text
+  - quest
   layers:
   - Default
   - TransparentFX

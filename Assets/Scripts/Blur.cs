@@ -8,8 +8,19 @@ public class Blur : MonoBehaviour
     public bool blurok = false;
     public float Alpha = 0.8f;
     Color m_color;
-
-
+    Object obj;
+    public void Resetting()
+    {
+        blurok = false;
+        if (tag == "Image")
+        {
+            GetComponent<Image>().color = new Color(m_color.r, m_color.g, m_color.b, 0);
+        }
+        if (tag == "Text")
+        {
+            GetComponent<Text>().color = new Color(m_color.r, m_color.g, m_color.b, 0);
+        }
+    }
     public void Bluring()
     {
         if(this.gameObject.tag=="Text")
@@ -46,7 +57,8 @@ public class Blur : MonoBehaviour
     {
         if(tag=="Image")
         {
-            m_color = this.gameObject.GetComponent<Image>().color;
+            
+               m_color = this.gameObject.GetComponent<Image>().color;
         }
        if(tag=="Text")
         {
