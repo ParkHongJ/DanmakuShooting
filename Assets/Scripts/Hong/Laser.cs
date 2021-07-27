@@ -48,12 +48,9 @@ public class Laser : ActtackPattern
             RaycastHit _hit;
             if (Physics.Raycast(firePos.position, firePos.forward, out _hit, range))
             {
-                if (_hit.transform.CompareTag("Player"))
+                if (_hit.transform.CompareTag("Player") || _hit.transform.CompareTag("Wall"))
                 {
-                    Debug.Log("맞음");
                     lineRenderer.SetPosition(1, _hit.point);
-                    Debug.Log("실행댐");
-
                 }
             }
             else //맞은게 없다면
@@ -61,7 +58,6 @@ public class Laser : ActtackPattern
                 lineRenderer.SetPosition(1, firePos.position + firePos.forward * range);
                 Debug.Log("실행댐");
             }
-            Debug.Log(hit.point);
         }
     }
     void DisableEffects()
