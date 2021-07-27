@@ -5,12 +5,13 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public GameObject BulletObj;
-    public GameObject SandSwamp;
-    public GameObject player;
     public Transform firePos;
+    public GameObject SandSwamp;
     public float bulletSpeed = 10;
+    public GameObject player;
     public GameObject[] bullets;
-
+    [SerializeField]
+    int hp;
     //private void Awake()
     //{
     //    for (int i = 0; i < 200; i++)
@@ -23,13 +24,18 @@ public class Enemy : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //라인렌더러 설정
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.SetColors(Color.red, Color.yellow);
-        lineRenderer.SetWidth(0.1f, 0.1f);
-
-        //라인렌더러 처음위치 나중위치
-        //lineRenderer.SetPosition(1, player.transform.position);
+        hp = 100;
+    }
+    public void GetDamaged(int _damage)
+    {
+        hp -= _damage;
+        if( hp <= 0)
+        {
+            Die();
+        }
+    }
+    public void Die()
+    {
 
     }
     void Update()
@@ -82,10 +88,10 @@ public class Enemy : MonoBehaviour
         //    }
         //}
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            StartCoroutine(Pattern());
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    StartCoroutine(Pattern());
+        //}
     }
     void Fire()
     {

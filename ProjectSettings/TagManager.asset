@@ -7,6 +7,8 @@ TagManager:
   - Image
   - Text
   - quest
+  - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX
