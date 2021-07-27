@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
 
     public bool isAlive = true; // 살아있는가
     public bool isMovable = true; // 움직일 수 있는가
+    public bool isAttackable = true; // 공격
     public bool canFlash = true; // 점멸 가능한가
 
     private float viewX, viewY, viewZ; // 보는 방향
@@ -33,6 +34,8 @@ public class Player : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         isAlive = true; // 살아있는가?
         canFlash = true; // 점멸중인가?
+        isMovable = true; // 움직일 수 있는가
+        isAttackable = true; // 공격
     }
 
     void FixedUpdate() // 물리 관련
@@ -58,11 +61,6 @@ public class Player : MonoBehaviour
                 this.Death(); // 사망 시 호출
             }
 
-            if (Input.GetKeyDown(KeyCode.R)) // 테스트용
-            {
-                animator.SetTrigger("attack1");
-            }
-
             if (Input.GetKeyDown(KeyCode.T)) // 테스트용
             {
                 animator.SetTrigger("attack2");
@@ -73,9 +71,14 @@ public class Player : MonoBehaviour
                 animator.SetTrigger("damaged");
             }
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetButton("Fire1") && isAttackable) // 공격1
             {
-                
+                this.Attack1();
+            }
+
+            if (Input.GetButton("Fire2") && isAttackable) // 공격2
+            {
+                this.Attack2();
             }
         }
     }
@@ -118,13 +121,11 @@ public class Player : MonoBehaviour
         if (controller.velocity == Vector3.zero) // 이동중인가?
         {
             animator.SetBool("isMove", false);
-            animator.SetLayerWeight(0, 1.0f);
             animator.SetLayerWeight(1, 0.0f);
         }
         else
         {
             animator.SetBool("isMove", true);
-            animator.SetLayerWeight(0, 0.0f);
             animator.SetLayerWeight(1, 1.0f);
         }
 
@@ -134,7 +135,20 @@ public class Player : MonoBehaviour
 
     void Attack1()
     {
+        isAttackable = false;
+        isMovable = false;
+        animator.SetTrigger("attack1");
+        StartCoroutine(MoveDelay(0.4f));
+        StartCoroutine(AttackDelay(0.5f));
+    }
 
+    void Attack2()
+    {
+        isAttackable = false;
+        isMovable = false;
+        animator.SetTrigger("attack2");
+        StartCoroutine(MoveDelay(0.4f));
+        StartCoroutine(AttackDelay(0.5f));
     }
 
     void Dodge(float h, float v)
@@ -151,6 +165,16 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(_sec);
         canFlash = true;
+    }
+    IEnumerator AttackDelay(float _sec)
+    {
+        yield return new WaitForSeconds(_sec);
+        isAttackable = true;
+    }
+    IEnumerator MoveDelay(float _sec)
+    {
+        yield return new WaitForSeconds(_sec);
+        isMovable = true;
     }
 
     void Death() // 사망
