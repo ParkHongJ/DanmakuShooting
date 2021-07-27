@@ -11,13 +11,11 @@ public class Player : MonoBehaviour
     private float moveSpeed = 6.0f; // 이동 속도
     private float rotateSpeed = 10.0f; // 회전 속도
     private float flashPower = 5.0f; // 점멸 거리 
-    private float flashDelay = 0.5f; // 점멸 딜레이
+    private float flashDelay = 3.5f; // 점멸 딜레이
 
     public bool isAlive = true; // 살아있는가
     public bool isMovable = true; // 움직일 수 있는가
     public bool canFlash = true; // 점멸 가능한가
-
-    private float flashTimer = 0.0f; // 점멸 타이머
 
     private float viewX, viewY, viewZ; // 보는 방향
     private float moveX, moveZ; // 이동 값
@@ -25,7 +23,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     [Tooltip("체력")]
     private int hp = 100; // 체력
-
+    private int potion = 0; // 포션 개수
+    private int attack1_type = 0; // 공격 타입
+    private int attack2_type = 0; // 공격 타입
 
     void Start() // 초기 설정
     {
@@ -53,7 +53,6 @@ public class Player : MonoBehaviour
     {
         if(isAlive)
         {        
-
             if (Input.GetKeyDown(KeyCode.E)) // 테스트용
             {
                 this.Death(); // 사망 시 호출
@@ -72,6 +71,11 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Q)) // 테스트용
             {
                 animator.SetTrigger("damaged");
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                
             }
         }
     }
@@ -126,6 +130,11 @@ public class Player : MonoBehaviour
 
 
         controller.SimpleMove(Vector3.forward * 0); // 중력
+    }
+
+    void Attack1()
+    {
+
     }
 
     void Dodge(float h, float v)
