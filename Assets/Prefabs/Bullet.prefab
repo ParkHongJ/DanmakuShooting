@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3024520930875544177}
   - component: {fileID: 3024520930875544178}
   - component: {fileID: 8621001144827988441}
-  - component: {fileID: -7581511943985366773}
+  - component: {fileID: 2929543985517969627}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b2a55488394610c46bb8e649f63e4676, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,7 +111,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &-7581511943985366773
+--- !u!114 &2929543985517969627
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,9 +120,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3024520930875544179}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc7e18bfaad50484dbb093f11f48608c, type: 3}
+  m_Script: {fileID: 11500000, guid: e33664d31149f5a4f856ea153e20d102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  damage: 0
-  target: {fileID: 0}
+  damage: 10

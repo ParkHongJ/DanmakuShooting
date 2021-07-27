@@ -43,7 +43,7 @@ public class ActtackPattern : MonoBehaviour
     public float cooltime; //쿨타임
     public float height; //높이
     public float range; //사정거리
-    public float damage; //데미지
+    public int damage; //데미지
 
     AttackType attackType;
     RangeType rangeType;
@@ -55,4 +55,5 @@ public class ActtackPattern : MonoBehaviour
     {
 
     }
+
 }
