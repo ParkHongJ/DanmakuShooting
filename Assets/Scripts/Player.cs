@@ -137,6 +137,18 @@ public class Player : MonoBehaviour
     {
         isAttackable = false;
         isMovable = false;
+
+        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition); // 마우스위치로 레이 구하기
+        Plane GroupPlane = new Plane(Vector3.up, Vector3.zero); // 하늘보는 평면
+        float rayLength;
+
+        if (GroupPlane.Raycast(cameraRay, out rayLength))
+        {
+            Vector3 pointTolook = cameraRay.GetPoint(rayLength);
+            transform.LookAt(new Vector3(pointTolook.x, transform.position.y, pointTolook.z));
+            viewX = pointTolook.x; viewZ = pointTolook.z;
+        }
+
         animator.SetTrigger("attack1");
         StartCoroutine(MoveDelay(0.4f));
         StartCoroutine(AttackDelay(0.5f));
