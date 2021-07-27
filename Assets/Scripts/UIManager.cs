@@ -137,7 +137,6 @@ public class UIManager : MonoBehaviour
                     Global_Data.Instance.IsIngame = false;
                     PlayingUI.SetActive(false);
                     Option_click_Ingame.SetActive(false);
-                    //-----------------------옵션 정보들 mainpage 옵션에 넘겨주는 작업---------------------
                     Option_BGSlider.value = OptionIngame_BGSlider.value;
                     Option_SFXSlider.value = OptionIngame_SFXSlider.value;
                 }
