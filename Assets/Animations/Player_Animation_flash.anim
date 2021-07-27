@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player_Animation_Flash
+  m_Name: Player_Animation_flash
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0

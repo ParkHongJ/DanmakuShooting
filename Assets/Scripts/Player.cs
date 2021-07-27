@@ -54,16 +54,11 @@ public class Player : MonoBehaviour
 
     void Update() // 뭐넣지
     {
-        if(isAlive)
-        {        
+        if (isAlive)
+        {
             if (Input.GetKeyDown(KeyCode.E)) // 테스트용
             {
                 this.Death(); // 사망 시 호출
-            }
-
-            if (Input.GetKeyDown(KeyCode.T)) // 테스트용
-            {
-                animator.SetTrigger("attack2");
             }
 
             if (Input.GetKeyDown(KeyCode.Q)) // 테스트용
@@ -98,15 +93,18 @@ public class Player : MonoBehaviour
         if (isMovable) // 움직일 수 있는지 체크
             controller.Move(new Vector3(moveX, 0, moveZ) * Time.deltaTime * moveSpeed);
 
-        if ((Mathf.Abs(moveX) >= 0.13f || Mathf.Abs(moveZ) >= 0.13f) && isMovable) // 일정이상 입력받으면
-        {
-            viewX = Mathf.Lerp(viewX, moveX, 0.8f);
-            viewZ = Mathf.Lerp(viewZ, moveZ, 0.8f);
-        }
-        Vector3 dir = new Vector3(viewX, viewY, viewZ); // 동일 높이에서 어디로 바라보고 있는지 
-        float angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg; // x,y 값으로 각도 구하기
         if (isMovable)
-            controller.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0.0f, angle, 0.0f), rotateSpeed * Time.deltaTime); // 부드러운 회전
+            ViewMouse();
+        // 회전
+        //if ((Mathf.Abs(moveX) >= 0.13f || Mathf.Abs(moveZ) >= 0.13f) && isMovable) // 일정이상 입력받으면
+        //{
+        //    viewX = Mathf.Lerp(viewX, moveX, 0.8f);
+        //    viewZ = Mathf.Lerp(viewZ, moveZ, 0.8f);
+        //}
+        //Vector3 dir = new Vector3(viewX, viewY, viewZ); // 동일 높이에서 어디로 바라보고 있는지 
+        //float angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg; // x,y 값으로 각도 구하기
+        //if (isMovable)
+        //    controller.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0.0f, angle, 0.0f), rotateSpeed * Time.deltaTime); // 부드러운 회전
 
         if (isMovable)
             this.UpdateAnimation(moveX, moveZ);
@@ -136,30 +134,20 @@ public class Player : MonoBehaviour
     void Attack1()
     {
         isAttackable = false;
-        isMovable = false;
-
-        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition); // 마우스위치로 레이 구하기
-        Plane GroupPlane = new Plane(Vector3.up, Vector3.zero); // 하늘보는 평면
-        float rayLength;
-
-        if (GroupPlane.Raycast(cameraRay, out rayLength))
-        {
-            Vector3 pointTolook = cameraRay.GetPoint(rayLength);
-            transform.LookAt(new Vector3(pointTolook.x, transform.position.y, pointTolook.z));
-            viewX = pointTolook.x; viewZ = pointTolook.z;
-        }
-
+        //isMovable = false; 
+        ViewMouse();
         animator.SetTrigger("attack1");
-        StartCoroutine(MoveDelay(0.4f));
+        //StartCoroutine(MoveDelay(0.4f));
         StartCoroutine(AttackDelay(0.5f));
     }
 
     void Attack2()
     {
         isAttackable = false;
-        isMovable = false;
+        //isMovable = false; 
+        ViewMouse();
         animator.SetTrigger("attack2");
-        StartCoroutine(MoveDelay(0.4f));
+        //StartCoroutine(MoveDelay(0.4f));
         StartCoroutine(AttackDelay(0.5f));
     }
 
@@ -187,6 +175,20 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(_sec);
         isMovable = true;
+    }
+
+    void ViewMouse()
+    {
+        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition); // 마우스위치로 레이 구하기
+        Plane GroupPlane = new Plane(Vector3.up, Vector3.zero); // 하늘보는 평면
+        float rayLength;
+
+        if (GroupPlane.Raycast(cameraRay, out rayLength))
+        {
+            Vector3 pointTolook = cameraRay.GetPoint(rayLength);
+            transform.LookAt(new Vector3(pointTolook.x, transform.position.y, pointTolook.z));
+            viewX = pointTolook.x; viewZ = pointTolook.z;
+        }
     }
 
     void Death() // 사망
