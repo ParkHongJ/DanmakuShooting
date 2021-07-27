@@ -18,10 +18,24 @@ public class Item
         explan = explan_;
     }
 }
+[System.Serializable]
+public class Dialog
+{
+    public string num, type, name, subject,text;
+    public Dialog(string num_,string type_,string name_,string subject_,string text_)
+    {
+        num = num_;
+        type = type_;
+        name = name_;
+        subject = subject_;
+        text = text_;
+    }
+}
+
 public class DataManager : MonoBehaviour
 {
     public TextAsset Item_DB;
-
+    public TextAsset Dialog_DB;
     void Awake()
     {
         string[] line = Item_DB.text.Substring(0, Item_DB.text.Length - 1).Split('\n');
@@ -29,6 +43,12 @@ public class DataManager : MonoBehaviour
         {
             string[] row = line[i].Split('\t');
             Global_Data.Instance.ItemList.Add(new Item(row[0], row[1], row[2], row[3], row[4], row[5]));
+        }
+        string[] line2 = Dialog_DB.text.Substring(0, Dialog_DB.text.Length - 1).Split('\n');
+        for (int i = 0; i < line2.Length; i++)
+        {
+            string[] row = line2[i].Split('\t');
+            Global_Data.Instance.DialogList.Add(new Dialog(row[0], row[1], row[2], row[3],row[4]));
         }
     }
 
