@@ -56,6 +56,10 @@ public class Player : MonoBehaviour
     {
         if (isAlive)
         {
+            if(hp <= 0) // 체력이 없으면
+            {
+                Death(); // 사망
+            }
             if (Input.GetKeyDown(KeyCode.E)) // 테스트용
             {
                 this.Death(); // 사망 시 호출
@@ -133,22 +137,18 @@ public class Player : MonoBehaviour
 
     void Attack1()
     {
-        isAttackable = false;
-        //isMovable = false; 
+        isAttackable = false; StartCoroutine(AttackDelay(0.5f));
+        //isMovable = false; StartCoroutine(MoveDelay(0.4f));
         ViewMouse();
         animator.SetTrigger("attack1");
-        //StartCoroutine(MoveDelay(0.4f));
-        StartCoroutine(AttackDelay(0.5f));
     }
 
     void Attack2()
     {
-        isAttackable = false;
-        //isMovable = false; 
+        isAttackable = false; StartCoroutine(AttackDelay(0.5f));
+        //isMovable = false; StartCoroutine(MoveDelay(0.4f));
         ViewMouse();
         animator.SetTrigger("attack2");
-        //StartCoroutine(MoveDelay(0.4f));
-        StartCoroutine(AttackDelay(0.5f));
     }
 
     void Dodge(float h, float v)
