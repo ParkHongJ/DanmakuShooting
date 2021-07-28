@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
         Debug.Log("부딪힘");
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<Enemy>().GetDamaged(damage);
+            //other.GetComponent<Enemy>().GetDamaged(damage);
             Debug.Log(damage);
             Destroy(gameObject);
         }

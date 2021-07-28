@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActtackPattern : MonoBehaviour
+public class AttackPattern : MonoBehaviour
 {
     public enum AttackSkill
     {

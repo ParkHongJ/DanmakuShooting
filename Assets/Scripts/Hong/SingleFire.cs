@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SingleFire : ActtackPattern
+public class SingleFire : AttackPattern
 {
     public GameObject BulletObj;
     public Transform firePos;
