@@ -70,6 +70,7 @@ public class EnemyAI : AttackPattern
                 yield break;
             }
         }
+        StartCoroutine(State_Patrol());
         yield return null;
     }
     public IEnumerator State_Patrol()
@@ -90,12 +91,14 @@ public class EnemyAI : AttackPattern
 
             if (Vector3.Distance(transform.position, RandomDest.position) <= DistEps)
             {
-                StartCoroutine(State_Idle());
+                StartCoroutine(State_Patrol());
+                //StartCoroutine(State_Idle());
                 yield break;
             }
             yield return null;
         }
     }
+    float ChaseTimeOut = 5f;
     public IEnumerator State_Chase()
     {
         CurrentState = AI_ENEMY_STATE.CHASE;
@@ -104,6 +107,17 @@ public class EnemyAI : AttackPattern
         {
             agent.SetDestination(playerTransform.position);
 
+            if (!CanSeePlayer)
+            {
+                float ElapsedTime = 0f;
+                while(true)
+                {
+                    ElapsedTime += Time.deltaTime;
+
+                    agent.SetDestination(playerTransform.position);
+                    yield return null;
+                }
+            }
             //while (true)
             //{
             //    agent.SetDestination(playerTransform.position);
@@ -128,6 +142,11 @@ public class EnemyAI : AttackPattern
             transform.LookAt(playerTransform);
             ElapsedTime += Time.deltaTime * 0.05f;
 
+            if(!CanSeePlayer) 
+            {
+                StartCoroutine(State_Chase());
+                yield break;
+            }
             if (ElapsedTime >= AttackDelay)
             {
                 ElapsedTime = 0f;
