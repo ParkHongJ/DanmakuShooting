@@ -105,19 +105,20 @@ public class EnemyAI : AttackPattern
 
         while (CurrentState == AI_ENEMY_STATE.CHASE)
         {
+            yield return null;
             agent.SetDestination(playerTransform.position);
 
-            if (!CanSeePlayer)
-            {
-                float ElapsedTime = 0f;
-                while(true)
-                {
-                    ElapsedTime += Time.deltaTime;
+            //if (!CanSeePlayer)
+            //{
+            //    float ElapsedTime = 0f;
+            //    while(true)
+            //    {
+            //        ElapsedTime += Time.deltaTime;
 
-                    agent.SetDestination(playerTransform.position);
-                    yield return null;
-                }
-            }
+            //        agent.SetDestination(playerTransform.position);
+            //        yield return null;
+            //    }
+            //}
             //while (true)
             //{
             //    agent.SetDestination(playerTransform.position);
@@ -128,7 +129,6 @@ public class EnemyAI : AttackPattern
                 StartCoroutine(State_Attack());
                 yield break;
             }
-            yield return null;
         }
     }
     public IEnumerator State_Attack()
