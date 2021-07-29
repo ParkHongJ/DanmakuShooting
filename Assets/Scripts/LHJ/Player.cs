@@ -115,17 +115,19 @@ public class Player : MonoBehaviour
         if (animator == null)
             return;
 
+        // 2차원 블랜더트리
+        animator.SetFloat("move_FB", v);
+        animator.SetFloat("move_LR", h);
+
         animator.SetFloat("moveSpeed", new Vector2(h, v).magnitude); // 입력을 얼마나 넣었는가
 
         if (controller.velocity == Vector3.zero) // 이동중인가?
         {
             animator.SetBool("isMove", false);
-            animator.SetLayerWeight(1, 0.0f);
         }
         else
         {
             animator.SetBool("isMove", true);
-            animator.SetLayerWeight(1, 1.0f);
         }
 
 

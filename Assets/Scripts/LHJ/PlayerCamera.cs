@@ -6,6 +6,7 @@ public class PlayerCamera : MonoBehaviour
 {
     public GameObject m_player = null; // 플레이어 오브젝트
     public int m_mode = 0;
+    public float distance = 7.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,6 @@ public class PlayerCamera : MonoBehaviour
         if (m_player == null)
             return;
         if( m_mode == 0 )
-            this.transform.position = m_player.transform.position + new Vector3(0.0f, 7.0f, -7.0f);
+            this.transform.position = m_player.transform.position + new Vector3(0.0f, distance, -distance);
     }
 }
