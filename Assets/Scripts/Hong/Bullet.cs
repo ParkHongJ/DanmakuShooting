@@ -7,14 +7,24 @@ public class Bullet : MonoBehaviour
     //총알 속도
     public float speed;
     //총알 데미지
-    public int damage = 10;
+    public int damage = 10; 
+    enum AttackType
+    {
+        Ground = 1, //땅인지
+        Sky //하늘인지
+    }
+    AttackType attackType = AttackType.Ground;
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("부딪힘");
-        if (other.CompareTag("Player"))
+
+        IHit ihit = other.GetComponent<IHit>();
+        if ( ihit != null )
         {
-            //other.GetComponent<Enemy>().GetDamaged(damage);
-            Debug.Log(damage);
+            ihit.GetDamaged(damage, (int)attackType);
+            Destroy(gameObject);
+        }
+        if ( other.CompareTag("Wall"))
+        {
             Destroy(gameObject);
         }
         //else

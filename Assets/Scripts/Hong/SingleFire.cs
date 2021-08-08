@@ -6,7 +6,7 @@ public class SingleFire : AttackPattern
 {
     public GameObject BulletObj;
     public Transform firePos;
-    public float bulletSpeed = 10;
+    public float bulletSpeed = 30;
 
     private void Start()
     {
