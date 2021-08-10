@@ -12,7 +12,9 @@ public class Player : MonoBehaviour
     private float rotateSpeed = 10.0f; // 회전 속도
     private float flashPower = 5.0f; // 점멸 거리 
     private float flashDelay = 3.5f; // 점멸 딜레이
+    private float attack2Range = 8.0f;
 
+    public Transform FirePos;
     public bool isAlive = true; // 살아있는가
     public bool isMovable = true; // 움직일 수 있는가
     public bool isAttackable = true; // 공격
@@ -20,6 +22,8 @@ public class Player : MonoBehaviour
 
     private float viewX, viewY, viewZ; // 보는 방향
     private float moveX, moveZ; // 이동 값
+
+    public GameObject[] bullet; // 0 1 2 3 4 5
 
     [SerializeField]
     [Tooltip("체력")]
@@ -30,6 +34,8 @@ public class Player : MonoBehaviour
 
     void Start() // 초기 설정
     {
+        if (FirePos == null)
+            FirePos = transform.Find("FirePos").transform;
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         isAlive = true; // 살아있는가?
@@ -52,11 +58,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Update() // 뭐넣지
+    void Update() // 체크
     {
         if (isAlive)
         {
-            if(hp <= 0) // 체력이 없으면
+            if (hp <= 0) // 체력이 없으면
             {
                 Death(); // 사망
             }
@@ -67,12 +73,15 @@ public class Player : MonoBehaviour
 
             if (Input.GetButton("Fire1") && isAttackable) // 공격1
             {
-                this.Attack1();
+                this.Attack(0);
+                animator.SetTrigger("attack1");
             }
 
             if (Input.GetButton("Fire2") && isAttackable) // 공격2
             {
-                this.Attack2();
+                Attack3(5);
+                //this.Attack(1);
+                animator.SetTrigger("attack2");
             }
         }
     }
@@ -134,20 +143,81 @@ public class Player : MonoBehaviour
         controller.SimpleMove(Vector3.forward * 0); // 중력
     }
 
-    void Attack1()
+    void Attack(int _index) // 공격 타입 판단
     {
-        isAttackable = false; StartCoroutine(AttackDelay(0.5f));
-        //isMovable = false; StartCoroutine(MoveDelay(0.4f));
-        ViewMouse();
-        animator.SetTrigger("attack1");
+        switch (_index)
+        {
+            // Attack1 - FirePos에서 발사
+            case 0: // 바위 발사
+            case 3: // 화염구
+                Attack1(_index);
+                break;
+            // Attack2 - FirePos위치 바닥부터 발사
+            case 1: // 가시 공격
+                Attack2(_index);
+                break;
+            // Attack2 - 마우스 지점에서 생성
+            case 2: // 모래 늪
+            case 5: // 폭발
+                Attack3(_index);
+                break;
+            // Attack3 - FirePos에서 발사 후 자식으로
+            case 4: // 빔
+                Attack4(_index);
+                break;
+        }
     }
 
-    void Attack2()
+    void Attack1(int _index) // 발사
     {
         isAttackable = false; StartCoroutine(AttackDelay(0.5f));
-        //isMovable = false; StartCoroutine(MoveDelay(0.4f));
         ViewMouse();
-        animator.SetTrigger("attack2");
+
+
+        Instantiate(bullet[_index], FirePos.transform.position, FirePos.transform.rotation);
+    }
+    void Attack2(int _index) // 발사
+    {
+        isAttackable = false; StartCoroutine(AttackDelay(0.5f));
+        ViewMouse();
+
+
+        Instantiate(bullet[_index], new Vector3(FirePos.transform.position.x, this.transform.position.y, FirePos.transform.position.z), FirePos.transform.rotation);
+    }
+
+    void Attack3(int _index) // 마우스 지점공격
+    {
+        isAttackable = false; StartCoroutine(AttackDelay(0.5f));
+        ViewMouse();
+
+        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition); // 마우스위치로 레이 구하기
+        Plane GroupPlane = new Plane(Vector3.up, Vector3.zero); // 하늘보는 평면
+        float rayLength;
+
+        if (GroupPlane.Raycast(cameraRay, out rayLength))
+        {
+            Vector3 pointTolook = cameraRay.GetPoint(rayLength);
+            if (pointTolook.x >= this.transform.position.x + attack2Range)
+                pointTolook.x = this.transform.position.x + attack2Range;
+            if (pointTolook.z >= this.transform.position.z + attack2Range)
+                pointTolook.z = this.transform.position.z + attack2Range;
+            if (pointTolook.x <= this.transform.position.x - attack2Range)
+                pointTolook.x = this.transform.position.x - attack2Range;
+            if (pointTolook.z <= this.transform.position.z - attack2Range)
+                pointTolook.z = this.transform.position.z - attack2Range;
+
+            //Debug.LogFormat("{0},{1},{2}", pointTolook.x, pointTolook.y, pointTolook.z);
+            Instantiate(bullet[_index], pointTolook, FirePos.transform.rotation);
+        }
+
+    }
+    void Attack4(int _index) // 생성 후 따라다니게
+    {
+        isAttackable = false; StartCoroutine(AttackDelay(0.5f));
+        ViewMouse();
+
+        GameObject bl = Instantiate(bullet[_index], FirePos.transform.position, FirePos.transform.rotation);
+        bl.transform.parent = this.transform;
     }
 
     void Dodge(float h, float v)
@@ -176,13 +246,15 @@ public class Player : MonoBehaviour
         isMovable = true;
     }
 
-
     void Damaged(float dmg)
     {
         animator.SetTrigger("damaged");
         this.hp -= dmg;
+        if (hp < 0)
+        {
+            Death();
+        }
     }
-
     void ViewMouse()
     {
         Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition); // 마우스위치로 레이 구하기
