@@ -57,7 +57,6 @@ public class Blur : MonoBehaviour
     {
         if(tag=="Image")
         {
-            
                m_color = this.gameObject.GetComponent<Image>().color;
         }
        if(tag=="Text")

@@ -50,6 +50,8 @@ public class DataManager : MonoBehaviour
             string[] row = line2[i].Split('\t');
             Global_Data.Instance.DialogList.Add(new Dialog(row[0], row[1], row[2], row[3],row[4]));
         }
+        print(Item_DB);
+        
     }
 
     // Start is called before the first frame update

@@ -111,6 +111,7 @@ public class Player : MonoBehaviour
         if (isMovable)
             this.UpdateAnimation(moveX, moveZ);
     }
+
     void UpdateAnimation(float h, float v) // 애니메이터 업데이트
     {
         if (animator == null)

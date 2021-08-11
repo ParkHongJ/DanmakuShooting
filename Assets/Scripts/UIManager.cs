@@ -21,10 +21,16 @@ public class UIManager : MonoBehaviour
     public Slider Option_SFXSlider;
     public Slider OptionIngame_BGSlider;
     public Slider OptionIngame_SFXSlider;
-
+    public GameObject WASD, Space, QE, RLClick;
+    public GameObject fade;
+    public GameObject player;
+    private int controlmethod_page = 1;
     public void ControlMethod_Button()
     {
         ControlMethod_click.SetActive(true);
+        WASD.GetComponent<ControlMethod_WASD>().restart();
+        QE.GetComponent<ControlMethod_QE>().restart();
+        RLClick.GetComponent<ControlMethod_Click>().restart();
     }
 
     public void Option_Button()
@@ -45,6 +51,13 @@ public class UIManager : MonoBehaviour
     public void ControlMethod_X()
     {
         ControlMethod_click.SetActive(false);
+        WASD.SetActive(true);
+        Space.SetActive(false);
+        QE.SetActive(false);
+        RLClick.SetActive(false);
+        WASD.GetComponent<ControlMethod_WASD>().reseting();
+        QE.GetComponent<ControlMethod_QE>().reseting();
+        RLClick.GetComponent<ControlMethod_Click>().reseting();
     }
 
     public void Option_X()
@@ -93,6 +106,36 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         
+    }
+
+    private void SetControlMethodPage(int num)
+    {
+        switch(num)
+        {
+            case 1:
+                player.GetComponent<Animator>().SetInteger("moving", 1);
+                WASD.SetActive(true);
+                RLClick.SetActive(false);
+                break;
+            case 2:
+                player.transform.localRotation = Quaternion.Euler(0, 180, 0);
+                player.GetComponent<Animator>().SetInteger("moving", 4);
+                WASD.SetActive(false);
+                Space.SetActive(true);
+                break;
+            case 3:
+                Space.SetActive(false);
+                QE.SetActive(true);
+                player.GetComponent<Animator>().SetInteger("moving", 0);
+                break;
+            case 4:
+                QE.SetActive(false);
+                RLClick.SetActive(true);
+                player.GetComponent<Animator>().SetInteger("moving", 2);
+                break;
+        }
+        //fade.SetActive(false);
+        return;
     }
 
     // Update is called once per frame
@@ -147,7 +190,20 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
-
+        if(Global_Data.Instance.IsIngame==false&& ControlMethod_click.activeSelf==true)
+        {
+            if(Input.GetMouseButtonDown(0))
+            {
+                if (controlmethod_page == 4)
+                {
+                    ControlMethod_X();
+                    controlmethod_page = 1;
+                }
+                else
+                    controlmethod_page += 1;
+                SetControlMethodPage(controlmethod_page);
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (Global_Data.Instance.IsIngame == true)
