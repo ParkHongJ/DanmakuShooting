@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Laser : ActtackPattern
+[RequireComponent(typeof(LineRenderer))]
+public class Laser : AttackPattern
 {
     // Start is called before the first frame update
     private LineRenderer lineRenderer;
@@ -12,6 +13,7 @@ public class Laser : ActtackPattern
     {
         //라인렌더러 설정
         lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.enabled = false;
         lineRenderer.SetColors(Color.red, Color.yellow);
         lineRenderer.SetWidth(0.1f, 0.1f);
     }
@@ -20,6 +22,8 @@ public class Laser : ActtackPattern
     float effectdisplaytime = 0.5f;
     float timer;
     float timeBetweenBullets = 0.15f;
+
+    
     // Update is called once per frame
     void Update()
     {
@@ -36,7 +40,6 @@ public class Laser : ActtackPattern
     public override void Attack() 
     {
         timer = 0f;
-        Debug.DrawRay(firePos.position, firePos.forward * 10f, Color.black);
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100))
@@ -44,11 +47,13 @@ public class Laser : ActtackPattern
 
             lineRenderer.enabled = true;
             lineRenderer.SetPosition(0, firePos.position);
-
+            int layerMask = (1 << LayerMask.NameToLayer("Bullet"));  // Everything에서 Bullet 레이어만 제외하고 충돌 체크함
+            layerMask = ~layerMask;
             RaycastHit _hit;
-            if (Physics.Raycast(firePos.position, firePos.forward, out _hit, range))
+            if (Physics.Raycast(firePos.position, firePos.forward, out _hit, range, layerMask))
             {
-                if (_hit.transform.CompareTag("Player") || _hit.transform.CompareTag("Wall"))
+                Debug.Log(_hit.collider.tag);
+                if (_hit.transform.CompareTag("Enemy") || _hit.transform.CompareTag("Wall"))
                 {
                     lineRenderer.SetPosition(1, _hit.point);
                 }
