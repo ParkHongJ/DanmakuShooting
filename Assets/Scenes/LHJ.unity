@@ -4958,7 +4958,11 @@ MonoBehaviour:
   canFlash: 1
   bullet:
   - {fileID: 5304238184641532500, guid: 08a47f36a52f34d4998291098ea26c72, type: 3}
+  - {fileID: 1043075508884226182, guid: f42848ac42ef0f341977d0e329932aba, type: 3}
+  - {fileID: 1997249372122042597, guid: ead1fa7e2d533b84297aa2f73dd63185, type: 3}
+  - {fileID: 1541045715116015461, guid: 7cb7917766fdb7840b3331519474a964, type: 3}
   - {fileID: 601308616411043470, guid: d33af66f097dc5546abda5b7f7c5c8a4, type: 3}
+  - {fileID: 8304804325415651043, guid: c6d15cd0e71e646449b6e204c627bea3, type: 3}
   hp: 100
 --- !u!143 &1997141991
 CharacterController:
@@ -5242,7 +5246,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2057529895}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 4}
+  m_LocalPosition: {x: 0, y: 1, z: 10.85}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
