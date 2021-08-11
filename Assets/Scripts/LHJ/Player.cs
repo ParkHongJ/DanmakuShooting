@@ -44,6 +44,56 @@ public class Player : MonoBehaviour
         isAttackable = true; // 공격
     }
 
+    public void SetHP(float a)
+    {
+        hp = a;
+    }
+
+    public float GetHP()
+    {
+        return hp;
+    }
+
+    public void SetPotion(int a)
+    {
+        potion = a;
+    }
+
+    public float GetPotion()
+    {
+        return potion;
+    }
+
+    public void SetAttack1_type(int i)
+    {
+        attack1_type = i;
+    }
+
+    public int GetAttack1_type()
+    {
+        return attack1_type;
+    }
+
+    public void SetAttack2_type(int i)
+    {
+        attack2_type = i;
+    }
+
+    public int GetAttack2_type()
+    {
+        return attack2_type;
+    }
+
+    public void SetIsAlive(bool a)
+    {
+        isAlive = a;
+    }
+
+    public bool GetIsAlive()
+    {
+        return isAlive;
+    }
+
     void FixedUpdate() // 물리 관련
     {
         if (isAlive)
