@@ -1016,7 +1016,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1943171985}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bd75e72ec8011f4d9591bcc6f20ffcf, type: 3}
   m_Name: 
@@ -1142,13 +1142,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1943171985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7df47aac1f6e41a428bea427ac08cf48, type: 3}
+  m_Script: {fileID: 11500000, guid: 0080d58d24f1b534faea4a98f845e26d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FirePos: {fileID: 1691122788}
   isAlive: 1
   isMovable: 1
-  isAttackable: 0
+  isAttackable: 1
   canFlash: 1
+  bullet: []
   hp: 100
 --- !u!143 &1943171995
 CharacterController:
@@ -1234,17 +1236,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3863723735441665381, guid: bcff391fad55bff438fb9dc1cf528f3d,
-        type: 3}
-      propertyPath: BulletObj
-      value: 
-      objectReference: {fileID: 3024520930875544179, guid: e32915039a07b874695ce5a2f4ebf02c,
-        type: 3}
-    - target: {fileID: 3863723735441665381, guid: bcff391fad55bff438fb9dc1cf528f3d,
-        type: 3}
-      propertyPath: CurrentAttack
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcff391fad55bff438fb9dc1cf528f3d, type: 3}

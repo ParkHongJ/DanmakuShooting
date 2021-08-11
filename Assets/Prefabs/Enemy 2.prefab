@@ -291,9 +291,9 @@ MonoBehaviour:
   range: 0
   damage: 0
   CurrentState: 1
-  CurrentAttack: 4
+  CurrentAttack: 2
   AttackDelay: 0.3
-  BulletObj: {fileID: 6071388002575257656, guid: 6652e8877ca62644ea2d4f90b38d89b3,
+  BulletObj: {fileID: 3024520930875544179, guid: e32915039a07b874695ce5a2f4ebf02c,
     type: 3}
   bulletSpeed: 20
   firePos: {fileID: 9084950133126864246}
