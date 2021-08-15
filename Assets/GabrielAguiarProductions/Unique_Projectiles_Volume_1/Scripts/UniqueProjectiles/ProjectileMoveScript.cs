@@ -34,6 +34,7 @@ public class ProjectileMoveScript : MonoBehaviour {
 
     private Vector3 startPos;
 	private float speedRandomness;
+    [SerializeField]
 	private Vector3 offset;
 	private bool collided;
 	private Rigidbody rb;
@@ -80,14 +81,19 @@ public class ProjectileMoveScript : MonoBehaviour {
 
 	void FixedUpdate () {
         if (target != null)
-            rotateToMouse.RotateToMouse (gameObject, target.transform.position);
+            rotateToMouse.RotateToMouse(gameObject, target.transform.position);
         if (rotate)
             transform.Rotate(0, 0, rotateAmount, Space.Self);
         if (speed != 0 && rb != null)
-			rb.position += (transform.forward + offset) * (speed * Time.deltaTime);   
+            rb.position += (transform.forward + offset) * (speed * Time.deltaTime);   
     }
 
-	void OnCollisionEnter (Collision co) {
+
+    void OnTriggerEnter()
+    {
+
+    }
+    void OnCollisionEnter (Collision co) {
         if (!bounce)
         {
             if (co.gameObject.tag != "Bullet" && !collided)
