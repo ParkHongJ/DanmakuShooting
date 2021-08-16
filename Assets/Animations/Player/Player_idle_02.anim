@@ -6,11 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD:Assets/Animations/Player_Animation_idle_02.anim
-  m_Name: Player_Animation_idle_02
-=======
-  m_Name: Player_idle_02
->>>>>>> origin/LHJ:Assets/Animations/Player/Player_idle_02.anim
+  m_Name: Player_Idle_02
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
