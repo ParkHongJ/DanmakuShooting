@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     private CharacterController controller; // 캐릭터 이동 관련
     private Animator animator; // 애니메이터
 
-    private float moveSpeed = 6.0f; // 이동 속도
+    public float moveSpeed = 6.0f; // 이동 속도
     private float rotateSpeed = 10.0f; // 회전 속도
     private float flashPower = 5.0f; // 점멸 거리 
     private float flashDelay = 3.5f; // 점멸 딜레이
@@ -119,19 +119,19 @@ public class Player : MonoBehaviour
             {
                 Death(); // 사망
             }
-            if (Input.GetKeyDown(KeyCode.E)) // 테스트용
-            {
-                this.Death(); // 사망 시 호출
-            }
+            //if (Input.GetKeyDown(KeyCode.E)) // 테스트용
+            //{
+            //    this.Death(); // 사망 시 호출
+            //}
 
             if (Input.GetButton("Fire1") && isAttackable) // 공격1
             {
-                Attack(0,0);
+                Attack(0, 0);
             }
 
             if (Input.GetButton("Fire2") && isAttackable) // 공격2
             {
-                Attack(1,1);
+                Attack(1, 1);
             }
         }
     }
@@ -207,7 +207,7 @@ public class Player : MonoBehaviour
         controller.SimpleMove(Vector3.forward * 0); // 중력
     }
 
-public float GetAngleBetween3DVector(Vector3 vec1, Vector3 vec2)
+    public float GetAngleBetween3DVector(Vector3 vec1, Vector3 vec2)
     {
         float theta = Vector3.Dot(vec1, vec2) / (vec1.magnitude * vec2.magnitude);
         Vector3 dirAngle = Vector3.Cross(vec1, vec2);
@@ -276,7 +276,7 @@ public float GetAngleBetween3DVector(Vector3 vec1, Vector3 vec2)
         isAttackable = false; StartCoroutine(AttackDelay(0.5f));
         //ViewMouse();
 
-        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition); // 마우스위치로 레이 구하기
+        Ray cameraRay = playerCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition); // 마우스위치로 레이 구하기
         Plane GroupPlane = new Plane(Vector3.up, Vector3.zero); // 하늘보는 평면
         float rayLength;
 
@@ -300,7 +300,7 @@ public float GetAngleBetween3DVector(Vector3 vec1, Vector3 vec2)
     IEnumerator Attack4(int _index, float _cooltime, float _movetime) // 발사
     {
         float time = 0.0f;
-        isAttackable = false; 
+        isAttackable = false;
         //ViewMouse();
         animator.SetBool("attack1_toggle", true);
 
@@ -362,7 +362,7 @@ public float GetAngleBetween3DVector(Vector3 vec1, Vector3 vec2)
     }
     void ViewMouse()
     {
-        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition); // 마우스위치로 레이 구하기
+        Ray cameraRay = playerCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition); // 마우스위치로 레이 구하기
         Plane GroupPlane = new Plane(Vector3.up, Vector3.zero); // 하늘보는 평면
         float rayLength;
 
@@ -375,7 +375,7 @@ public float GetAngleBetween3DVector(Vector3 vec1, Vector3 vec2)
     }
     Vector3 GetMousePoint()
     {
-        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition); // 마우스위치로 레이 구하기
+        Ray cameraRay = playerCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition); // 마우스위치로 레이 구하기
         Plane GroupPlane = new Plane(Vector3.up, Vector3.zero); // 하늘보는 평면
         Vector3 pointTolook;
         float rayLength;
