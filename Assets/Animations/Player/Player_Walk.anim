@@ -6,11 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD:Assets/Animations/Player_Animation_walk.anim
-  m_Name: Player_Animation_walk
-=======
   m_Name: Player_Walk
->>>>>>> origin/LHJ:Assets/Animations/Player/Player_Walk.anim
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0

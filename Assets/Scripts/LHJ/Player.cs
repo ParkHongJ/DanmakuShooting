@@ -14,7 +14,8 @@ public class Player : MonoBehaviour
     private float flashDelay = 3.5f; // 점멸 딜레이
     private float attack2Range = 8.0f;
 
-    public Transform FirePos;
+    public GameObject playerCamera = null;
+    public Transform FirePos = null; // 발사 위치
     public bool isAlive = true; // 살아있는가
     public bool isMovable = true; // 움직일 수 있는가
     public bool isAttackable = true; // 공격
@@ -34,6 +35,8 @@ public class Player : MonoBehaviour
 
     void Start() // 초기 설정
     {
+        if (playerCamera == null)
+            playerCamera = Camera.main.gameObject;
         if (FirePos == null)
             FirePos = transform.Find("FirePos").transform;
         controller = GetComponent<CharacterController>();
@@ -123,12 +126,12 @@ public class Player : MonoBehaviour
 
             if (Input.GetButton("Fire1") && isAttackable) // 공격1
             {
-                Attack(4,0);
+                Attack(0,0);
             }
 
             if (Input.GetButton("Fire2") && isAttackable) // 공격2
             {
-                Attack(5,1);
+                Attack(1,1);
             }
         }
     }
@@ -148,7 +151,12 @@ public class Player : MonoBehaviour
         Vector3 inputDir3 = new Vector3(moveX, 0, moveZ); // 입력 방향
 
         if (isMovable) // 움직일 수 있는지 체크
-            controller.Move(new Vector3(moveX, 0, moveZ) * Time.deltaTime * moveSpeed);
+        {
+            if (playerCamera != null)
+                controller.Move(Quaternion.Euler(0, playerCamera.transform.rotation.eulerAngles.y, 0) * new Vector3(moveX, 0, moveZ) * Time.deltaTime * moveSpeed);
+            else
+                controller.Move(new Vector3(moveX, 0, moveZ) * Time.deltaTime * moveSpeed);
+        }
 
         if (isMovable)
             ViewMouse();
@@ -165,16 +173,20 @@ public class Player : MonoBehaviour
 
         this.UpdateAnimation(moveX, moveZ);
     }
+
+
     void UpdateAnimation(float h, float v) // 애니메이터 업데이트
     {
         if (animator == null)
             return;
+        Vector3 v3Mouse = GetMousePoint() - transform.position; v3Mouse.y = 0;
+        Vector3 v3RotatedDirection = Quaternion.Euler(0, -playerCamera.transform.rotation.eulerAngles.y, 0) * Quaternion.FromToRotation(Vector3.forward, v3Mouse) * new Vector3(v, 0, h);
 
         // 2차원 블랜더트리
         if (isMovable)
         {
-            animator.SetFloat("move_FB", v);
-            animator.SetFloat("move_LR", h);
+            animator.SetFloat("move_FB", v3RotatedDirection.x);
+            animator.SetFloat("move_LR", v3RotatedDirection.z);
         }
 
         if (isMovable)
@@ -193,6 +205,15 @@ public class Player : MonoBehaviour
 
 
         controller.SimpleMove(Vector3.forward * 0); // 중력
+    }
+
+public float GetAngleBetween3DVector(Vector3 vec1, Vector3 vec2)
+    {
+        float theta = Vector3.Dot(vec1, vec2) / (vec1.magnitude * vec2.magnitude);
+        Vector3 dirAngle = Vector3.Cross(vec1, vec2);
+        float angle = Mathf.Acos(theta) * Mathf.Rad2Deg;
+        if (dirAngle.z < 0.0f) angle = 360 - angle;
+        return angle;
     }
 
     void Attack(int _index, int _click) // 공격 타입 판단
@@ -236,7 +257,7 @@ public class Player : MonoBehaviour
     void Attack1(int _index, float _cooltime) // 발사
     {
         isAttackable = false; StartCoroutine(AttackDelay(_cooltime));
-        ViewMouse();
+        //ViewMouse();
 
 
         Instantiate(bullet[_index], FirePos.transform.position, FirePos.transform.rotation);
@@ -244,7 +265,7 @@ public class Player : MonoBehaviour
     void Attack2(int _index, float _cooltime) // 발사
     {
         isAttackable = false; StartCoroutine(AttackDelay(0.5f));
-        ViewMouse();
+        //ViewMouse();
 
 
         Instantiate(bullet[_index], new Vector3(FirePos.transform.position.x, this.transform.position.y, FirePos.transform.position.z) + (this.transform.forward * 2.0f), FirePos.transform.rotation);
@@ -253,7 +274,7 @@ public class Player : MonoBehaviour
     void Attack3(int _index, float _cooltime) // 마우스 지점공격
     {
         isAttackable = false; StartCoroutine(AttackDelay(0.5f));
-        ViewMouse();
+        //ViewMouse();
 
         Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition); // 마우스위치로 레이 구하기
         Plane GroupPlane = new Plane(Vector3.up, Vector3.zero); // 하늘보는 평면
@@ -280,7 +301,7 @@ public class Player : MonoBehaviour
     {
         float time = 0.0f;
         isAttackable = false; 
-        ViewMouse();
+        //ViewMouse();
         animator.SetBool("attack1_toggle", true);
 
         yield return new WaitForSeconds(0.25f);
@@ -351,6 +372,21 @@ public class Player : MonoBehaviour
             transform.LookAt(new Vector3(pointTolook.x, transform.position.y, pointTolook.z));
             viewX = pointTolook.x; viewZ = pointTolook.z;
         }
+    }
+    Vector3 GetMousePoint()
+    {
+        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition); // 마우스위치로 레이 구하기
+        Plane GroupPlane = new Plane(Vector3.up, Vector3.zero); // 하늘보는 평면
+        Vector3 pointTolook;
+        float rayLength;
+
+        if (GroupPlane.Raycast(cameraRay, out rayLength))
+        {
+            pointTolook = cameraRay.GetPoint(rayLength);
+            transform.LookAt(new Vector3(pointTolook.x, transform.position.y, pointTolook.z));
+            return pointTolook;
+        }
+        return Vector3.zero;
     }
 
     void Death() // 사망

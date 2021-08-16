@@ -3709,7 +3709,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7732077078337276511}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
@@ -3734,7 +3734,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 12e2166e228a1fd4195cdfc77dd71741, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -3770,6 +3770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0080d58d24f1b534faea4a98f845e26d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCamera: {fileID: 0}
   FirePos: {fileID: 7732077078266220801}
   isAlive: 1
   isMovable: 1
@@ -3777,6 +3778,11 @@ MonoBehaviour:
   canFlash: 1
   bullet:
   - {fileID: 5304238184641532500, guid: 08a47f36a52f34d4998291098ea26c72, type: 3}
+  - {fileID: 1043075508884226182, guid: f42848ac42ef0f341977d0e329932aba, type: 3}
+  - {fileID: 1997249372122042597, guid: ead1fa7e2d533b84297aa2f73dd63185, type: 3}
+  - {fileID: 1541045715116015461, guid: 7cb7917766fdb7840b3331519474a964, type: 3}
+  - {fileID: 601308616411043470, guid: d33af66f097dc5546abda5b7f7c5c8a4, type: 3}
+  - {fileID: 8304804325415651043, guid: c6d15cd0e71e646449b6e204c627bea3, type: 3}
   hp: 100
 --- !u!1 &7732077078344417043
 GameObject:

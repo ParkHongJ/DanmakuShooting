@@ -6,11 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD:Assets/Animations/Player_Animation_death.anim
-  m_Name: Player_Animation_death
-=======
   m_Name: Player_Death
->>>>>>> origin/LHJ:Assets/Animations/Player/Player_Death.anim
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
