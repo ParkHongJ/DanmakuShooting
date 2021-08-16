@@ -16,7 +16,10 @@ public class EnemyAI : AttackPattern, IHit
         MonBullet_01 = 1,
         MonBullet_02,
         MonBullet_03,
-        MonBullet_04
+        MonBullet_04,
+        BossBullet_01,
+        BossBullet_02,
+        BossBullet_04
     }
     //현재 상태
     public AI_ENEMY_STATE CurrentState = AI_ENEMY_STATE.IDLE;
@@ -44,13 +47,12 @@ public class EnemyAI : AttackPattern, IHit
 
         Waypoints = GameObject.FindGameObjectsWithTag("WayPoints");
     }
-    private void Start()
+    void Start()
     {
-
         StartCoroutine(State_Patrol());
     }
     bool CanSeePlayer = false;
-    private void Update()
+    void Update()
     {
         CanSeePlayer = false;
         CanSeePlayer = IsAttackRange();
@@ -101,15 +103,16 @@ public class EnemyAI : AttackPattern, IHit
         }
     }
     float ChaseTimeOut = 5f;
+
     public IEnumerator State_Chase()
     {
         CurrentState = AI_ENEMY_STATE.CHASE;
 
         while (CurrentState == AI_ENEMY_STATE.CHASE)
         {
-            yield return null;
             agent.SetDestination(playerTransform.position);
 
+            yield return null;
             //if (!CanSeePlayer)
             //{
             //    float ElapsedTime = 0f;
@@ -128,17 +131,21 @@ public class EnemyAI : AttackPattern, IHit
             //}
             if (Vector3.Distance(transform.position, transform.position) <= DistEps)
             {
+                
                 StartCoroutine(State_Attack());
                 yield break;
             }
         }
+        yield return null;
     }
     public IEnumerator State_Attack()
     {
         CurrentState = AI_ENEMY_STATE.ATTACK;
         //공격 주기
         float ElapsedTime = 0f;
+        //animator.SetTrigger();
 
+        //agent.Stop();
         while (CurrentState == AI_ENEMY_STATE.ATTACK)
         {
             transform.LookAt(playerTransform);
@@ -184,6 +191,9 @@ public class EnemyAI : AttackPattern, IHit
             case AI_ENEMY_ATTACK.MonBullet_04:
                 MonBullet_04();
                 break;
+            case AI_ENEMY_ATTACK.BossBullet_02:
+                BossBullet_02();
+                break;
         }
     }
 
@@ -194,7 +204,7 @@ public class EnemyAI : AttackPattern, IHit
         bullet.SetActive(true);
         bullet.transform.position = firePos.position;
         Rigidbody rigid = bullet.GetComponent<Rigidbody>();
-        rigid.AddForce(transform.forward * bulletSpeed, ForceMode.Impulse);
+        rigid.AddForce(firePos.forward * bulletSpeed, ForceMode.Impulse);
     }
     public Transform firePosL;
     public Transform firePosLL;
@@ -202,27 +212,39 @@ public class EnemyAI : AttackPattern, IHit
     public Transform firePosRR;
     public void MonBullet_02()
     {
-        GameObject[] bullet = new GameObject[5];
         for (int i = 0; i < 5; i++)
         {
-            bullet[i] = Instantiate(BulletObj);
-            bullet[i].SetActive(true);
+            firePos.localEulerAngles = new Vector3(0, 45 - (i * 22.5f), 0);
+            MonBullet_01();
         }
-        bullet[0].transform.position = firePosL.position;
-        bullet[1].transform.position = firePosLL.position;
-        bullet[2].transform.position = firePos.position;
-        bullet[3].transform.position = firePosR.position;
-        bullet[4].transform.position = firePosRR.position;
+        firePos.localEulerAngles = Vector3.zero;
 
-        bullet[0].GetComponent<Rigidbody>().AddForce(firePosL.forward * bulletSpeed, ForceMode.Impulse);
-        bullet[1].GetComponent<Rigidbody>().AddForce(firePosLL.forward * bulletSpeed, ForceMode.Impulse);
-        bullet[2].GetComponent<Rigidbody>().AddForce(firePos.forward * bulletSpeed, ForceMode.Impulse);
-        bullet[3].GetComponent<Rigidbody>().AddForce(firePosR.forward * bulletSpeed, ForceMode.Impulse);
-        bullet[4].GetComponent<Rigidbody>().AddForce(firePosRR.forward * bulletSpeed, ForceMode.Impulse);
+        //GameObject[] bullet = new GameObject[5];
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    bullet[i] = Instantiate(BulletObj);
+        //    bullet[i].SetActive(true);
+        //}
+        //bullet[0].transform.position = firePosL.position;
+        //bullet[1].transform.position = firePosLL.position;
+        //bullet[2].transform.position = firePos.position;
+        //bullet[3].transform.position = firePosR.position;
+        //bullet[4].transform.position = firePosRR.position;
+
+        //bullet[0].transform.rotation = firePosL.localRotation;
+        //bullet[1].transform.rotation = firePosLL.localRotation;
+        //bullet[2].transform.rotation = firePos.localRotation;
+        //bullet[3].transform.rotation = firePosR.localRotation;
+        //bullet[4].transform.rotation = firePosRR.localRotation;
+
+        //bullet[0].GetComponent<Rigidbody>().AddForce(firePosL.forward * bulletSpeed, ForceMode.Impulse);
+        //bullet[1].GetComponent<Rigidbody>().AddForce(firePosLL.forward * bulletSpeed, ForceMode.Impulse);
+        //bullet[2].GetComponent<Rigidbody>().AddForce(firePos.forward * bulletSpeed, ForceMode.Impulse);
+        //bullet[3].GetComponent<Rigidbody>().AddForce(firePosR.forward * bulletSpeed, ForceMode.Impulse);
+        //bullet[4].GetComponent<Rigidbody>().AddForce(firePosRR.forward * bulletSpeed, ForceMode.Impulse);
     }
     public void MonBullet_03()
     {
-
         GameObject bullet = Instantiate(BulletObj);
         bullet.transform.position = firePos.position;
         bullet.GetComponent<tempBullet>().SetTargetAndFirepos(playerTransform.position, firePos);
@@ -258,6 +280,24 @@ public class EnemyAI : AttackPattern, IHit
     {
 
     }
+
+    public void BossBullet_02()
+    {
+        StartCoroutine(BBullet_02());
+    }
+
+    IEnumerator BBullet_02()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            firePos.localEulerAngles = new Vector3(0, 60 - (i * 15), 0);
+            MonBullet_01();
+            yield return new WaitForSeconds(.1f);
+        }
+        firePos.localEulerAngles = Vector3.zero;
+        yield return null;
+    }
+
     float DistEps = 15f;
 
     bool IsAttackRange()

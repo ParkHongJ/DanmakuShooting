@@ -10,7 +10,11 @@ TagManager:
   - Wall
   - Enemy
   - WayPoints
+<<<<<<< HEAD
   - item
+=======
+  - Bullet
+>>>>>>> origin/HongsBranch
   layers:
   - Default
   - TransparentFX
