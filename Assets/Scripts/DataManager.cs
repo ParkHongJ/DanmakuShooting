@@ -7,27 +7,30 @@ using UnityEngine;
 [System.Serializable]
 public class Item
 {
-    public string num, name, objname,spritename,percent, explan;
-    public Item(string num_, string name_,string objname_, string spritename_,string percent_,string explan_)
+    public string num, objname, objtype,modelname,itemname ,explan,percent;
+    public Item(string num_, string name_,string objtype_, string spritename_,string itemname_, string explan_, string percent_)
     {
         num = num_;
-        name = name_;
-        objname = objname_;
-        spritename = spritename_;
-        percent = percent_;
+        objname = name_;
+        objtype = objtype_;
+        modelname = spritename_;
+        itemname = itemname_;
         explan = explan_;
+        percent = percent_;
+      
     }
 }
 [System.Serializable]
 public class Dialog
 {
-    public string num, type, name, subject,text;
-    public Dialog(string num_,string type_,string name_,string subject_,string text_)
+    public string num, type, name, subject,image_n,text;
+    public Dialog(string num_,string type_,string name_,string subject_,string image_,string text_)
     {
         num = num_;
         type = type_;
         name = name_;
         subject = subject_;
+        image_n = image_;
         text = text_;
     }
 }
@@ -42,13 +45,13 @@ public class DataManager : MonoBehaviour
         for (int i = 0; i < line.Length; i++)
         {
             string[] row = line[i].Split('\t');
-            Global_Data.Instance.ItemList.Add(new Item(row[0], row[1], row[2], row[3], row[4], row[5]));
+            Global_Data.Instance.ItemList.Add(new Item(row[0], row[1], row[2], row[3], row[4], row[5], row[6]));
         }
         string[] line2 = Dialog_DB.text.Substring(0, Dialog_DB.text.Length - 1).Split('\n');
         for (int i = 0; i < line2.Length; i++)
         {
             string[] row = line2[i].Split('\t');
-            Global_Data.Instance.DialogList.Add(new Dialog(row[0], row[1], row[2], row[3],row[4]));
+            Global_Data.Instance.DialogList.Add(new Dialog(row[0], row[1], row[2], row[3],row[4], row[5]));
         }
         print(Item_DB);
         

@@ -10,6 +10,7 @@ TagManager:
   - Wall
   - Enemy
   - WayPoints
+  - item
   layers:
   - Default
   - TransparentFX

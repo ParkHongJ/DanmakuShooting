@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LHJ.unity
     guid: 8e08b66d0b5167340a1c8c0bcdc46698
+  - enabled: 1
+    path: Assets/Scenes/MainScene.unity
+    guid: 8f1fde7b6b686bb418cae241f3cac0d4
   m_configObjects: {}

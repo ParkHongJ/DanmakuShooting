@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Interaction : MonoBehaviour
 {
-    Collider colider;
+    Collider colider_n;
     bool colok = false;
     public GameObject playerconversation;
     public GameObject playingui;
@@ -23,6 +23,9 @@ public class Interaction : MonoBehaviour
     public Image p_image;
     public string m_text;
     private bool con_first;
+    public GameObject canvas;
+    public Camera uicamera;
+    GameObject tmp;
     // Start is called before the first frame update
     private Coroutine C_Uiup, C_Uidown,typing;
     private IEnumerator _typing()
@@ -49,16 +52,23 @@ public class Interaction : MonoBehaviour
         if (other.tag == "quest")
         {
             print("enter");
-            colider = other;
+            colider_n = other;
             colok = true;
-            n_name = colider.GetComponent<NPC>().name;
-            npc_num = colider.GetComponent<NPC>().db_num;
+            n_name = colider_n.GetComponent<NPC>().name;
+            npc_num = colider_n.GetComponent<NPC>().db_num;
+        }
+        if(other.tag=="item")
+        {
+            int itemnum = other.GetComponent<DropItemNum>().GetNum();
+            tmp = Resources.Load<GameObject>("Prefab/item_infor");
+            tmp.gameObject.transform.SetParent(canvas.transform);
+            tmp.transform.localPosition = uicamera.WorldToScreenPoint(other.transform.position);
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        print("exit");
-        colider = null;
+        print("exit" +"\n"+"pp");
+        colider_n = null;
         colok = false;
         //npc = null;
         con_first = false;

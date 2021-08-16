@@ -3004,6 +3004,8 @@ MonoBehaviour:
   p_dialog: {fileID: 468664835}
   p_image: {fileID: 2109963738}
   m_text: 
+  canvas: {fileID: 0}
+  uicamera: {fileID: 0}
 --- !u!135 &414786021
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -7891,17 +7893,8 @@ MonoBehaviour:
   Option_click: {fileID: 658526599}
   Play_click: {fileID: 260254483}
   Quit_click: {fileID: 271904069}
-  PlayingUI: {fileID: 147150188}
-  PlayerConversation: {fileID: 1337658885}
-  Option_click_Ingame: {fileID: 833480624}
-  GameoverBlur: {fileID: 935491854}
-  GameoverT: {fileID: 1636338816}
-  AnyButtonclickT: {fileID: 1045139486}
-  Minimap: {fileID: 2041453324}
   Option_BGSlider: {fileID: 2145151614}
   Option_SFXSlider: {fileID: 1353430532}
-  OptionIngame_BGSlider: {fileID: 76691829}
-  OptionIngame_SFXSlider: {fileID: 79682484}
   WASD: {fileID: 1106701722}
   Space: {fileID: 1477065320}
   QE: {fileID: 1607993815}
@@ -12303,7 +12296,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &2012634142
 BoxCollider:
   m_ObjectHideFlags: 0

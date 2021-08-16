@@ -51,10 +51,10 @@ public class ItemDrop : MonoBehaviour
     }
     private void SetDropObj()
     {
-        int num = ChoseDropObjNum(); 
-        dropobj = Resources.Load<GameObject>("Prefab/"+Global_Data.Instance.ItemList[num-1].objname);
+        int num = ChoseDropObjNum();
+        dropobj = Resources.Load<GameObject>("Prefab/"+Global_Data.Instance.ItemList[num-1].itemname);
         Instantiate(dropobj);
-      
+        dropobj.GetComponent<DropItemNum>().SetNum(int.Parse(Global_Data.Instance.ItemList[num - 1].num));
     }
     private void Itemdrop()
     {
