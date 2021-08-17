@@ -4,13 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-<<<<<<< HEAD
   - Image
   - Text
   - quest
-=======
-  - player
->>>>>>> HongTest
+  - Wall
+  - Enemy
+  - WayPoints
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -20,7 +20,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Enemy
   - 
   - 
   - 
