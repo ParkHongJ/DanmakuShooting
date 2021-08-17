@@ -84,6 +84,7 @@ public class UIManager : MonoBehaviour
     public void GameStart()
     {
         SceneManager.LoadScene("MainScene");
+        Global_Data.Instance.IsIngame = true;
     }
 
     // Start is called before the first frame update

@@ -67,11 +67,11 @@ public class Interaction : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        print("exit" +"\n"+"pp");
-        colider_n = null;
-        colok = false;
-        //npc = null;
-        con_first = false;
+        //print("exit" + "\n" + "pp");
+        //colider_n = null;
+        //colok = false;
+        ////npc = null;
+        //con_first = false;
     }
     private IEnumerator UIDown(GameObject gm)
     {
