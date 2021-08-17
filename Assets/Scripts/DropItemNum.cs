@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class DropItemNum : MonoBehaviour
 {
-    private int num;
+    public int num;
+    private bool itemok = false;
+    
 
     public void SetNum(int p)
     {
@@ -19,7 +21,6 @@ public class DropItemNum : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
     // Start is called before the first frame update
     void Start()
     {

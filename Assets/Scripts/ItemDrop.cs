@@ -55,6 +55,8 @@ public class ItemDrop : MonoBehaviour
         dropobj = Resources.Load<GameObject>("Prefab/"+Global_Data.Instance.ItemList[num-1].itemname);
         Instantiate(dropobj);
         dropobj.GetComponent<DropItemNum>().SetNum(int.Parse(Global_Data.Instance.ItemList[num - 1].num));
+        print("dropobj num =" + dropobj.GetComponent<DropItemNum>().GetNum());
+        dropobj.transform.position = this.gameObject.transform.localPosition;
     }
     private void Itemdrop()
     {

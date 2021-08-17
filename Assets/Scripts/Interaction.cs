@@ -23,9 +23,12 @@ public class Interaction : MonoBehaviour
     public Image p_image;
     public string m_text;
     private bool con_first;
-    public GameObject canvas;
     public Camera uicamera;
-    GameObject tmp;
+    public GameObject tmp;
+    private bool itemok = false;
+    public GameObject iteminforUI;
+    public GameObject enter_item;
+    public Text item_infor_text;
     // Start is called before the first frame update
     private Coroutine C_Uiup, C_Uidown,typing;
     private IEnumerator _typing()
@@ -37,7 +40,7 @@ public class Interaction : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
         }
     }
-
+    
 
     void Start()
     {
@@ -57,21 +60,31 @@ public class Interaction : MonoBehaviour
             n_name = colider_n.GetComponent<NPC>().name;
             npc_num = colider_n.GetComponent<NPC>().db_num;
         }
-        if(other.tag=="item")
+        if (other.tag == "item")
         {
+            enter_item = other.gameObject;
+            print("entser item");
             int itemnum = other.GetComponent<DropItemNum>().GetNum();
-            tmp = Resources.Load<GameObject>("Prefab/item_infor");
-            tmp.gameObject.transform.SetParent(canvas.transform);
-            tmp.transform.localPosition = uicamera.WorldToScreenPoint(other.transform.position);
+            iteminforUI.SetActive(true);
+            //string p = Global_Data.Instance.ItemList[itemnum].explan;
+            string[] spstring = Global_Data.Instance.ItemList[itemnum].explan.Split('&');
+            item_infor_text.text = spstring[0] + "\n" + spstring[1];
+            itemok = true;
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        //print("exit" + "\n" + "pp");
-        //colider_n = null;
-        //colok = false;
-        ////npc = null;
-        //con_first = false;
+        if(other.tag=="item")
+        {
+            iteminforUI.SetActive(false);
+        }
+
+        colider_n = null;
+        colok = false;
+        //npc = null;
+        con_first = false;
+        enter_item = null;
+        itemok = false;
     }
     private IEnumerator UIDown(GameObject gm)
     {
@@ -162,11 +175,17 @@ public class Interaction : MonoBehaviour
             }
             else if (colok && Global_Data.Instance.IsIngame && con_first == false)
             {
-                print("1");
                 aniok = true;
                 playerconversation.SetActive(true);
                 con_first = true;
             }
+           if(itemok==true)
+            {
+                iteminforUI.SetActive(false);
+                enter_item.GetComponent<DropItemNum>().DestroyedSelf();
+                itemok = false;
+            }
+
         }
         if (aniok)//모션 세팅 끝나면
         {
@@ -176,7 +195,7 @@ public class Interaction : MonoBehaviour
 
             if (upok && downok)//모션이 끝나면
             {
-                print("2");
+             
                 time = 0f;
                 StopMethod(C_Uidown);
                 StopMethod(C_Uiup);
@@ -203,6 +222,7 @@ public class Interaction : MonoBehaviour
             }
         }
 
+      
 
 
     }
