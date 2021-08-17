@@ -19,6 +19,7 @@ public class EnemyAI : AttackPattern, IHit
         MonBullet_04,
         BossBullet_01,
         BossBullet_02,
+        BossBullet_03,
         BossBullet_04
     }
     //현재 상태
@@ -64,6 +65,8 @@ public class EnemyAI : AttackPattern, IHit
     {
         CurrentState = AI_ENEMY_STATE.IDLE;
 
+        animator.SetTrigger((int)AI_ENEMY_STATE.IDLE);
+
         agent.Stop();
 
         while (CurrentState == AI_ENEMY_STATE.IDLE)
@@ -73,13 +76,14 @@ public class EnemyAI : AttackPattern, IHit
                 StartCoroutine(State_Chase());
                 yield break;
             }
+            yield return null;
         }
-        StartCoroutine(State_Patrol());
-        yield return null;
     }
     public IEnumerator State_Patrol()
     {
         CurrentState = AI_ENEMY_STATE.PATROL;
+
+        animator.SetTrigger("Patrol");
 
         Transform RandomDest = Waypoints[Random.Range(0, Waypoints.Length)].transform;
 
@@ -143,9 +147,8 @@ public class EnemyAI : AttackPattern, IHit
         CurrentState = AI_ENEMY_STATE.ATTACK;
         //공격 주기
         float ElapsedTime = 0f;
-        //animator.SetTrigger();
 
-        //agent.Stop();
+        agent.Stop();
         while (CurrentState == AI_ENEMY_STATE.ATTACK)
         {
             transform.LookAt(playerTransform);
@@ -160,6 +163,7 @@ public class EnemyAI : AttackPattern, IHit
             {
                 ElapsedTime = 0f;
 
+                animator.SetTrigger("Attack_02");
                 //공격시작
                 if (playerTransform != null)
                 {
@@ -194,6 +198,9 @@ public class EnemyAI : AttackPattern, IHit
             case AI_ENEMY_ATTACK.BossBullet_02:
                 BossBullet_02();
                 break;
+            case AI_ENEMY_ATTACK.BossBullet_03:
+                BossBullet_03();
+                break;
         }
     }
 
@@ -203,6 +210,17 @@ public class EnemyAI : AttackPattern, IHit
         GameObject bullet = Instantiate(BulletObj);
         bullet.SetActive(true);
         bullet.transform.position = firePos.position;
+        bullet.transform.rotation = firePos.rotation;
+        Rigidbody rigid = bullet.GetComponent<Rigidbody>();
+        rigid.AddForce(firePos.forward * bulletSpeed, ForceMode.Impulse);
+    }
+
+    public void MonBullet_01(GameObject _BulletObj)
+    {
+        GameObject bullet = Instantiate(_BulletObj);
+        bullet.SetActive(true);
+        bullet.transform.position = firePos.position;
+        bullet.transform.rotation = firePos.rotation;
         Rigidbody rigid = bullet.GetComponent<Rigidbody>();
         rigid.AddForce(firePos.forward * bulletSpeed, ForceMode.Impulse);
     }
@@ -298,6 +316,17 @@ public class EnemyAI : AttackPattern, IHit
         yield return null;
     }
 
+    public GameObject BossBullet;
+    public void BossBullet_03()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            firePos.localEulerAngles = new Vector3(0, 45 - (i * 45f), 0);
+            MonBullet_01(BossBullet);
+        }
+        firePos.localEulerAngles = Vector3.zero;
+    }
+    
     float DistEps = 15f;
 
     bool IsAttackRange()
