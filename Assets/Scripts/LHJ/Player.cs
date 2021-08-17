@@ -12,16 +12,20 @@ public class Player : MonoBehaviour
     private float rotateSpeed = 10.0f; // 회전 속도
     private float flashPower = 5.0f; // 점멸 거리 
     private float flashDelay = 3.5f; // 점멸 딜레이
+    private float skillCooltime = 0.0f;
     private float attack2Range = 8.0f;
 
     public GameObject playerCamera = null;
-    public Transform FirePos = null; // 발사 위치
+    public Transform firePos = null; // 발사 위치
+    public GameObject lastEnemy = null;
     public bool isAlive = true; // 살아있는가
     public bool isMovable = true; // 움직일 수 있는가
     public bool isAttackable = true; // 공격
     public bool canFlash = true; // 점멸 가능한가
 
-    private float viewX, viewY, viewZ; // 보는 방향
+    public float[] skillDamage = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
+
+    //private float viewX, viewY, viewZ; // 보는 방향
     private float moveX, moveZ; // 이동 값
 
     public GameObject[] bullet; // 0 1 2 3 4 5
@@ -30,71 +34,21 @@ public class Player : MonoBehaviour
     [Tooltip("체력")]
     private float hp = 100; // 체력
     private int potion = 0; // 포션 개수
-    private int attack1_type = 0; // 공격 타입
-    private int attack2_type = 0; // 공격 타입
+    public int attack1_type = 0; // 공격 타입
+    public int attack2_type = 0; // 공격 타입
 
     void Start() // 초기 설정
     {
         if (playerCamera == null)
             playerCamera = Camera.main.gameObject;
-        if (FirePos == null)
-            FirePos = transform.Find("FirePos").transform;
+        if (firePos == null)
+            firePos = transform.Find("FirePos").transform;
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         isAlive = true; // 살아있는가?
         canFlash = true; // 점멸중인가?
         isMovable = true; // 움직일 수 있는가
         isAttackable = true; // 공격
-    }
-
-    public void SetHP(float a)
-    {
-        hp = a;
-    }
-
-    public float GetHP()
-    {
-        return hp;
-    }
-
-    public void SetPotion(int a)
-    {
-        potion = a;
-    }
-
-    public float GetPotion()
-    {
-        return potion;
-    }
-
-    public void SetAttack1_type(int i)
-    {
-        attack1_type = i;
-    }
-
-    public int GetAttack1_type()
-    {
-        return attack1_type;
-    }
-
-    public void SetAttack2_type(int i)
-    {
-        attack2_type = i;
-    }
-
-    public int GetAttack2_type()
-    {
-        return attack2_type;
-    }
-
-    public void SetIsAlive(bool a)
-    {
-        isAlive = a;
-    }
-
-    public bool GetIsAlive()
-    {
-        return isAlive;
     }
 
     void FixedUpdate() // 물리 관련
@@ -126,12 +80,12 @@ public class Player : MonoBehaviour
 
             if (Input.GetButton("Fire1") && isAttackable) // 공격1
             {
-                Attack(0, 0);
+                Attack(attack1_type, 0);
             }
 
             if (Input.GetButton("Fire2") && isAttackable) // 공격2
             {
-                Attack(1, 1);
+                Attack(attack2_type, 1);
             }
         }
     }
@@ -222,29 +176,29 @@ public class Player : MonoBehaviour
         {
             // Attack1 - FirePos에서 발사
             case 0: // 바위 발사
-                Attack1(_index, 0.25f);
+                Attack1(_index, 0.25f, 1.0f);
                 break;
             case 3: // 화염구
-                Attack1(_index, 0.25f);
+                Attack1(_index, 0.25f, 1.0f);
                 break;
 
 
             // Attack2 - FirePos위치 바닥부터 발사
             case 1: // 가시 공격
-                Attack2(_index, 0.5f);
+                Attack2(_index, 0.5f, 1.0f);
                 break;
 
             // Attack3 - 마우스 지점에서 생성
             case 2: // 모래 늪
-                Attack3(_index, 0.75f);
+                Attack3(_index, 0.75f, 1.0f);
                 break;
             case 5: // 폭발
-                Attack3(_index, 0.75f);
+                Attack3(_index, 0.75f, 1.0f);
                 break;
 
             // Attack4 - 토글식
             case 4: // 빔
-                StartCoroutine(Attack4(_index, 0.5f, 2.0f));
+                StartCoroutine(Attack4(_index, 0.5f, 1.0f, 2.0f));
                 break;
         }
         if (_index != 4)
@@ -254,30 +208,34 @@ public class Player : MonoBehaviour
                 animator.SetTrigger("attack2");
     }
 
-    void Attack1(int _index, float _cooltime) // 발사
+    void Attack1(int _index, float _cooltime, float _damage) // 발사
     {
+        GameObject obj;
         isAttackable = false; StartCoroutine(AttackDelay(_cooltime));
         //ViewMouse();
 
-
-        Instantiate(bullet[_index], FirePos.transform.position, FirePos.transform.rotation);
+        obj = Instantiate(bullet[_index], firePos.transform.position, firePos.transform.rotation);
+        obj.GetComponent<Player_Skill_00>().Damage = _damage;
     }
-    void Attack2(int _index, float _cooltime) // 발사
+    void Attack2(int _index, float _cooltime, float _damage) // 발사
     {
+        GameObject obj;
         isAttackable = false; StartCoroutine(AttackDelay(0.5f));
         //ViewMouse();
 
+        obj = Instantiate(bullet[_index], new Vector3(firePos.transform.position.x, this.transform.position.y, firePos.transform.position.z) + (this.transform.forward * 2.0f), firePos.transform.rotation);
+        obj.GetComponent<Player_Skill_01>().Damage = _damage;
 
-        Instantiate(bullet[_index], new Vector3(FirePos.transform.position.x, this.transform.position.y, FirePos.transform.position.z) + (this.transform.forward * 2.0f), FirePos.transform.rotation);
     }
 
-    void Attack3(int _index, float _cooltime) // 마우스 지점공격
+    void Attack3(int _index, float _cooltime, float _damage) // 마우스 지점공격
     {
+        GameObject obj;
         isAttackable = false; StartCoroutine(AttackDelay(0.5f));
         //ViewMouse();
 
         Ray cameraRay = playerCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition); // 마우스위치로 레이 구하기
-        Plane GroupPlane = new Plane(Vector3.up, Vector3.zero); // 하늘보는 평면
+        Plane GroupPlane = new Plane(Vector3.up, transform.position); // 하늘보는 평면
         float rayLength;
 
         if (GroupPlane.Raycast(cameraRay, out rayLength))
@@ -293,11 +251,12 @@ public class Player : MonoBehaviour
                 pointTolook.z = this.transform.position.z - attack2Range;
 
             //Debug.LogFormat("{0},{1},{2}", pointTolook.x, pointTolook.y, pointTolook.z);
-            Instantiate(bullet[_index], pointTolook, FirePos.transform.rotation);
+            obj = Instantiate(bullet[_index], pointTolook, firePos.transform.rotation);
+            obj.GetComponent<Player_Skill_02>().Damage = _damage;
         }
 
     }
-    IEnumerator Attack4(int _index, float _cooltime, float _movetime) // 발사
+    IEnumerator Attack4(int _index, float _cooltime, float _damage, float _movetime) // 발사
     {
         float time = 0.0f;
         isAttackable = false;
@@ -306,11 +265,11 @@ public class Player : MonoBehaviour
 
         yield return new WaitForSeconds(0.25f);
 
-        this.isMovable = false;
-        GameObject Laser = Instantiate(bullet[_index], FirePos.transform.position, FirePos.transform.rotation);
+        GameObject Laser = Instantiate(bullet[_index], firePos.transform.position, firePos.transform.rotation);
+        Laser.GetComponent<Player_Skill_04>().Damage = _damage;
+        Laser.transform.parent = this.gameObject.transform;
 
         StartCoroutine(Attack1AniDelay(_movetime));
-        StartCoroutine(MoveDelay(_movetime));
         StartCoroutine(AttackDelay(_cooltime + _movetime));
     }
 
@@ -363,20 +322,20 @@ public class Player : MonoBehaviour
     void ViewMouse()
     {
         Ray cameraRay = playerCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition); // 마우스위치로 레이 구하기
-        Plane GroupPlane = new Plane(Vector3.up, Vector3.zero); // 하늘보는 평면
+        Plane GroupPlane = new Plane(Vector3.up, transform.position); // 하늘보는 평면
         float rayLength;
 
         if (GroupPlane.Raycast(cameraRay, out rayLength))
         {
             Vector3 pointTolook = cameraRay.GetPoint(rayLength);
             transform.LookAt(new Vector3(pointTolook.x, transform.position.y, pointTolook.z));
-            viewX = pointTolook.x; viewZ = pointTolook.z;
+            //viewX = pointTolook.x; viewZ = pointTolook.z;
         }
     }
     Vector3 GetMousePoint()
     {
         Ray cameraRay = playerCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition); // 마우스위치로 레이 구하기
-        Plane GroupPlane = new Plane(Vector3.up, Vector3.zero); // 하늘보는 평면
+        Plane GroupPlane = new Plane(Vector3.up, transform.position); // 하늘보는 평면
         Vector3 pointTolook;
         float rayLength;
 
@@ -395,4 +354,55 @@ public class Player : MonoBehaviour
         isMovable = false;
         animator.SetBool("isAlive", false);
     }
+
+    public void SetHP(float a)
+    {
+        hp = a;
+    }
+
+    public float GetHP()
+    {
+        return hp;
+    }
+
+    public void SetPotion(int a)
+    {
+        potion = a;
+    }
+
+    public float GetPotion()
+    {
+        return potion;
+    }
+
+    public void SetAttack1_type(int i)
+    {
+        attack1_type = i;
+    }
+
+    public int GetAttack1_type()
+    {
+        return attack1_type;
+    }
+
+    public void SetAttack2_type(int i)
+    {
+        attack2_type = i;
+    }
+
+    public int GetAttack2_type()
+    {
+        return attack2_type;
+    }
+
+    public void SetIsAlive(bool a)
+    {
+        isAlive = a;
+    }
+
+    public bool GetIsAlive()
+    {
+        return isAlive;
+    }
+
 }

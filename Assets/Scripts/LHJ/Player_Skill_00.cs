@@ -7,6 +7,7 @@ public class Player_Skill_00 : MonoBehaviour
     public float Damage = 1.0f; // 데미지 값
     public float Speed = 10.0f; // 속도
     public int Type = 0; // 타입
+    public GameObject Owner = null;
 
     // Start is called before the first frame update
     void Start()
@@ -23,12 +24,14 @@ public class Player_Skill_00 : MonoBehaviour
     private void OnTriggerEnter(Collider hit)
     {
         if (hit.tag == "Player")
-        {
             return;
-        }
-        else if (hit.tag == "Enemy")
+        IHit hit2;
+        Player pl;
+        if (hit.TryGetComponent<IHit>(out hit2))
         {
-            hit.GetComponent<Enemy>().GetDamaged((int)Damage); // 데미지 주기
+            hit2.GetDamaged(Damage, 0); // 데미지 주기
+            if (Owner != null && Owner.TryGetComponent<Player>(out pl))
+                pl.lastEnemy = hit.gameObject;
         }
         Destroy(this.gameObject);
     }
