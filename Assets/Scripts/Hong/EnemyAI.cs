@@ -20,7 +20,19 @@ public class EnemyAI : AttackPattern, IHit
         BossBullet_01,
         BossBullet_02,
         BossBullet_03,
-        BossBullet_04
+        BossBullet_04,
+        MonAttack_05
+    }
+    public enum AI_ENEMY_TYPE
+    {
+        Monster01 = 1,
+        Monster02,
+        Monster03
+    }
+    public enum AI_ENEMY_MONSTER_TYPE
+    {
+        Ground = 1, //땅인지
+        Sky //하늘인지
     }
     //현재 상태
     public AI_ENEMY_STATE CurrentState = AI_ENEMY_STATE.IDLE;
@@ -30,9 +42,9 @@ public class EnemyAI : AttackPattern, IHit
     NavMeshAgent agent;
     Collider myCollider;
 
-    GameObject[] Waypoints;
-
-
+    public GameObject[] Waypoints;
+    public AI_ENEMY_TYPE CurrentType;
+    public AI_ENEMY_MONSTER_TYPE CurrentMonsterType;
 
     //나중에 방에 들어가면 찾는로직 있어야함
     Transform playerTransform;
@@ -45,8 +57,6 @@ public class EnemyAI : AttackPattern, IHit
 
         //플레이어 트랜스폼 얻기 (임시)
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-
-        Waypoints = GameObject.FindGameObjectsWithTag("WayPoints");
     }
     void Start()
     {
@@ -57,15 +67,13 @@ public class EnemyAI : AttackPattern, IHit
     {
         CanSeePlayer = false;
         CanSeePlayer = IsAttackRange();
-
-
     }
     //idle상태일 때 이 코루틴이 실행된다
     public IEnumerator State_Idle()
     {
         CurrentState = AI_ENEMY_STATE.IDLE;
 
-        animator.SetTrigger((int)AI_ENEMY_STATE.IDLE);
+        //animator.SetTrigger("Idle");
 
         agent.Stop();
 
@@ -88,7 +96,6 @@ public class EnemyAI : AttackPattern, IHit
         Transform RandomDest = Waypoints[Random.Range(0, Waypoints.Length)].transform;
 
         agent.SetDestination(RandomDest.position);
-
         while (CurrentState == AI_ENEMY_STATE.PATROL)
         {
             if (CanSeePlayer)
@@ -99,19 +106,30 @@ public class EnemyAI : AttackPattern, IHit
 
             if (Vector3.Distance(transform.position, RandomDest.position) <= DistEps)
             {
-                StartCoroutine(State_Patrol());
-                //StartCoroutine(State_Idle());
+                Debug.Log("distance:");
+                Debug.Log(Vector3.Distance(transform.position, RandomDest.position));
+                Debug.Log("DistEps");
+                Debug.Log(DistEps);
+                //yield return null;
+                //Reset();
+                StartCoroutine(Reset());
                 yield break;
             }
             yield return null;
         }
     }
-    float ChaseTimeOut = 5f;
+    public IEnumerator Reset()
+    {
+        StartCoroutine(State_Patrol());
+        yield return null;
+    }
 
     public IEnumerator State_Chase()
     {
         CurrentState = AI_ENEMY_STATE.CHASE;
 
+        animator.SetTrigger("Patrol");
+        agent.Resume();
         while (CurrentState == AI_ENEMY_STATE.CHASE)
         {
             agent.SetDestination(playerTransform.position);
@@ -147,8 +165,8 @@ public class EnemyAI : AttackPattern, IHit
         CurrentState = AI_ENEMY_STATE.ATTACK;
         //공격 주기
         float ElapsedTime = 0f;
-
         agent.Stop();
+        
         while (CurrentState == AI_ENEMY_STATE.ATTACK)
         {
             transform.LookAt(playerTransform);
@@ -161,9 +179,9 @@ public class EnemyAI : AttackPattern, IHit
             }
             if (ElapsedTime >= AttackDelay)
             {
+                animator.SetTrigger("Attack");
                 ElapsedTime = 0f;
 
-                animator.SetTrigger("Attack_02");
                 //공격시작
                 if (playerTransform != null)
                 {
@@ -181,6 +199,18 @@ public class EnemyAI : AttackPattern, IHit
 
     public override void Attack()
     {
+        switch(CurrentType)
+        {
+            case AI_ENEMY_TYPE.Monster01:
+                CurrentAttack = AI_ENEMY_ATTACK.MonAttack_05;
+                break;
+            case AI_ENEMY_TYPE.Monster02:
+                CurrentAttack = (AI_ENEMY_ATTACK)Random.Range(1, 3);
+                break;
+            case AI_ENEMY_TYPE.Monster03:
+                CurrentAttack = (AI_ENEMY_ATTACK)Random.Range(3, 5);
+                break;
+        }
         switch(CurrentAttack)
         {
             case AI_ENEMY_ATTACK.MonBullet_01:
@@ -261,9 +291,10 @@ public class EnemyAI : AttackPattern, IHit
         //bullet[3].GetComponent<Rigidbody>().AddForce(firePosR.forward * bulletSpeed, ForceMode.Impulse);
         //bullet[4].GetComponent<Rigidbody>().AddForce(firePosRR.forward * bulletSpeed, ForceMode.Impulse);
     }
+    public GameObject BulletObj2;
     public void MonBullet_03()
     {
-        GameObject bullet = Instantiate(BulletObj);
+        GameObject bullet = Instantiate(BulletObj2);
         bullet.transform.position = firePos.position;
         bullet.GetComponent<tempBullet>().SetTargetAndFirepos(playerTransform.position, firePos);
     }
@@ -272,7 +303,7 @@ public class EnemyAI : AttackPattern, IHit
         GameObject[] bullet = new GameObject[3];
         for (int i = 0; i < 3; i++)
         {
-            bullet[i] = Instantiate(BulletObj);
+            bullet[i] = Instantiate(BulletObj2);
         }
         bullet[0].transform.position = firePos.position;
         bullet[1].transform.position = firePosL.position;
@@ -327,7 +358,7 @@ public class EnemyAI : AttackPattern, IHit
         firePos.localEulerAngles = Vector3.zero;
     }
     
-    float DistEps = 15f;
+    float DistEps = 5f;
 
     bool IsAttackRange()
     {
@@ -368,7 +399,13 @@ public class EnemyAI : AttackPattern, IHit
     }
     public void Die()
     {
-        MonAttack_01();
+        animator.SetTrigger("Death");
         Destroy(gameObject);
+    }
+
+    public void OnIdleAnimCompleted()
+    {
+        StopAllCoroutines();
+        StartCoroutine(State_Patrol());
     }
 }
