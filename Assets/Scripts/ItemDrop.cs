@@ -7,6 +7,8 @@ public class ItemDrop : MonoBehaviour
     public int hp;
     public bool isdead;
     public GameObject dropobj;
+    public GameObject wreck;
+    public GameObject b_col;
     private void Start()
     {
         hp = 10;
@@ -16,7 +18,7 @@ public class ItemDrop : MonoBehaviour
     private bool Candrop()
     {
         int ran = Random.Range(1, 11);
-        return true;
+      
        // print(ran);
         if (ran == 1)
             return true;
@@ -64,6 +66,8 @@ public class ItemDrop : MonoBehaviour
         {
             SetDropObj();
             Destroy(gameObject);
+            wreck.SetActive(true);
+            b_col.SetActive(true);
         }
         else
         {
