@@ -16,7 +16,7 @@ public class tempBullet : MonoBehaviour
         IsArrival = false;
     }
 
-    float RotateSpeed = 30f;
+    float RotateSpeed = 5f;
     public bool IsArrival = false;
 
     float timer = 0.0f;

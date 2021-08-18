@@ -42,6 +42,7 @@ public class EnemyAI : AttackPattern, IHit
     NavMeshAgent agent;
     Collider myCollider;
 
+    public float hp;
     public GameObject[] Waypoints;
     public AI_ENEMY_TYPE CurrentType;
     public AI_ENEMY_MONSTER_TYPE CurrentMonsterType;
@@ -60,7 +61,7 @@ public class EnemyAI : AttackPattern, IHit
     }
     void Start()
     {
-        StartCoroutine(State_Patrol());
+        StartCoroutine(State_Idle());
     }
     bool CanSeePlayer = false;
     void Update()
@@ -73,24 +74,27 @@ public class EnemyAI : AttackPattern, IHit
     {
         CurrentState = AI_ENEMY_STATE.IDLE;
 
-        //animator.SetTrigger("Idle");
+        animator.SetTrigger("Idle");
 
         agent.Stop();
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(State_Patrol());
 
-        while (CurrentState == AI_ENEMY_STATE.IDLE)
-        {
-            if (CanSeePlayer)
-            {
-                StartCoroutine(State_Chase());
-                yield break;
-            }
-            yield return null;
-        }
+
+        //while (CurrentState == AI_ENEMY_STATE.IDLE)
+        //{
+        //    if (CanSeePlayer)
+        //    {
+        //        StartCoroutine(State_Chase());
+        //        yield break;
+        //    }
+        //    yield return null;
+        //}
     }
     public IEnumerator State_Patrol()
     {
         CurrentState = AI_ENEMY_STATE.PATROL;
-
+        agent.Resume();
         animator.SetTrigger("Patrol");
 
         Transform RandomDest = Waypoints[Random.Range(0, Waypoints.Length)].transform;
@@ -166,11 +170,12 @@ public class EnemyAI : AttackPattern, IHit
         //공격 주기
         float ElapsedTime = 0f;
         agent.Stop();
+        animator.SetTrigger("Attack");
         
         while (CurrentState == AI_ENEMY_STATE.ATTACK)
         {
             transform.LookAt(playerTransform);
-            ElapsedTime += Time.deltaTime * 0.05f;
+            ElapsedTime += Time.deltaTime * 1f;
 
             if(!CanSeePlayer) 
             {
@@ -179,7 +184,7 @@ public class EnemyAI : AttackPattern, IHit
             }
             if (ElapsedTime >= AttackDelay)
             {
-                animator.SetTrigger("Attack");
+                //animator.SetTrigger("Attack");
                 ElapsedTime = 0f;
 
                 //공격시작
@@ -234,10 +239,13 @@ public class EnemyAI : AttackPattern, IHit
         }
     }
 
-
+    public GameObject MonBullet_1;
+    public GameObject MonBullet_2;
+    public GameObject MonBullet_3;
+    public GameObject MonBullet_4;
     public void MonBullet_01()
     {
-        GameObject bullet = Instantiate(BulletObj);
+        GameObject bullet = Instantiate(MonBullet_1);
         bullet.SetActive(true);
         bullet.transform.position = firePos.position;
         bullet.transform.rotation = firePos.rotation;
@@ -255,15 +263,14 @@ public class EnemyAI : AttackPattern, IHit
         rigid.AddForce(firePos.forward * bulletSpeed, ForceMode.Impulse);
     }
     public Transform firePosL;
-    public Transform firePosLL;
     public Transform firePosR;
-    public Transform firePosRR;
+    
     public void MonBullet_02()
     {
         for (int i = 0; i < 5; i++)
         {
             firePos.localEulerAngles = new Vector3(0, 45 - (i * 22.5f), 0);
-            MonBullet_01();
+            MonBullet_01(MonBullet_2);
         }
         firePos.localEulerAngles = Vector3.zero;
 
@@ -294,7 +301,7 @@ public class EnemyAI : AttackPattern, IHit
     public GameObject BulletObj2;
     public void MonBullet_03()
     {
-        GameObject bullet = Instantiate(BulletObj2);
+        GameObject bullet = Instantiate(MonBullet_3);
         bullet.transform.position = firePos.position;
         bullet.GetComponent<tempBullet>().SetTargetAndFirepos(playerTransform.position, firePos);
     }
@@ -303,7 +310,7 @@ public class EnemyAI : AttackPattern, IHit
         GameObject[] bullet = new GameObject[3];
         for (int i = 0; i < 3; i++)
         {
-            bullet[i] = Instantiate(BulletObj2);
+            bullet[i] = Instantiate(MonBullet_4);
         }
         bullet[0].transform.position = firePos.position;
         bullet[1].transform.position = firePosL.position;
@@ -358,7 +365,7 @@ public class EnemyAI : AttackPattern, IHit
         firePos.localEulerAngles = Vector3.zero;
     }
     
-    float DistEps = 5f;
+    public float DistEps = 15f;
 
     bool IsAttackRange()
     {
@@ -391,8 +398,17 @@ public class EnemyAI : AttackPattern, IHit
     }
     public void GetDamaged(float damaged, int Type)
     {
-        //if(attacktype)
-        if(true)
+        if((int)CurrentMonsterType != Type)
+        {
+            //타입이 다르면
+            hp -= damaged / 2f;
+        }
+        else
+        {
+            //타입이 같으면
+            hp -= damaged;
+        }
+        if (hp <= 0)
         {
             Die();
         }
