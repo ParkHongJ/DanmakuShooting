@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
         potion = a;
     }
 
-    public float GetPotion()
+    public int GetPotion()
     {
         return potion;
     }

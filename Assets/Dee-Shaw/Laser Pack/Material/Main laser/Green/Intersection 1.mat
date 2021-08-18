@@ -8,8 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Intersection 1
-  m_Shader: {fileID: -6465566751694194690, guid: baa9946ea1fba3c4da8d40d27fd63c11,
-    type: 3}
+  m_Shader: {fileID: 1, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,8 +18,13 @@ Material:
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_D14D2064: 0.2
     m_Colors:
     - Color_D3F76B29: {r: 0.11869292, g: 388.02353, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}

@@ -17,6 +17,11 @@ public class DropItemNum : MonoBehaviour
         return num;
     }
 
+    public void Setpos(Vector3 p)
+    {
+        this.gameObject.transform.position = p;
+    }
+
     public void DestroyedSelf()
     {
         Destroy(gameObject);
