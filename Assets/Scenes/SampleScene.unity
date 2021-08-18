@@ -2784,6 +2784,7 @@ MonoBehaviour:
   iteminforUI: {fileID: 0}
   enter_item: {fileID: 0}
   item_infor_text: {fileID: 0}
+  Player_s: {fileID: 0}
 --- !u!135 &414786021
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4625,7 +4626,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &745117731
 RectTransform:
   m_ObjectHideFlags: 0
