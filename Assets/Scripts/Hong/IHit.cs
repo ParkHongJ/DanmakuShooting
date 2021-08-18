@@ -4,4 +4,5 @@ using UnityEngine;
 public interface IHit
 {
     void GetDamaged(float damaged, int Type);
+    void GetDamaged(float damaged);
 }

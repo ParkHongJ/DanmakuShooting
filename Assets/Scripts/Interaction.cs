@@ -31,6 +31,8 @@ public class Interaction : MonoBehaviour
     public Text item_infor_text;
     // Start is called before the first frame update
     private Coroutine C_Uiup, C_Uidown,typing;
+    public Player Player_s;
+
     private IEnumerator _typing()
     {
         //yield return new WaitForSeconds(2f);
@@ -67,7 +69,7 @@ public class Interaction : MonoBehaviour
             int itemnum = other.GetComponent<DropItemNum>().GetNum();
             iteminforUI.SetActive(true);
             //string p = Global_Data.Instance.ItemList[itemnum].explan;
-            string[] spstring = Global_Data.Instance.ItemList[itemnum].explan.Split('&');
+            string[] spstring = Global_Data.Instance.ItemList[itemnum-1].explan.Split('&');
             item_infor_text.text = spstring[0] + "\n" + spstring[1];
             itemok = true;
         }
@@ -155,6 +157,39 @@ public class Interaction : MonoBehaviour
         }
     }
 
+    private bool ItemClassification(int i)
+    {
+        switch(i)
+        {
+            case 1:
+                if (Player_s.GetPotion() >= 7)
+                    return false;
+                else
+                    //Player_s.SetPotion(Player_s.GetPotion() + 1);
+                return true;
+            case 2:
+                Player_s.SetAttack1_type(1);
+                return true;
+            case 3:
+                Player_s.SetAttack1_type(2);
+                return true;
+            case 4:
+                Player_s.SetAttack1_type(3);
+                return true;
+            case 5:
+                Player_s.SetAttack2_type(11);
+                return true;
+            case 6:
+                Player_s.SetAttack2_type(12);
+                return true;
+            case 7:
+                Player_s.SetAttack2_type(13);
+                return true;
+        }
+        return false;
+
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -179,11 +214,14 @@ public class Interaction : MonoBehaviour
                 playerconversation.SetActive(true);
                 con_first = true;
             }
-           if(itemok==true)
+            if (itemok == true)
             {
-                iteminforUI.SetActive(false);
-                enter_item.GetComponent<DropItemNum>().DestroyedSelf();
-                itemok = false;
+                if (ItemClassification(enter_item.GetComponent<DropItemNum>().GetNum()))
+                {
+                    iteminforUI.SetActive(false);
+                    enter_item.GetComponent<DropItemNum>().DestroyedSelf();
+                    itemok = false;
+                }
             }
 
         }
@@ -207,7 +245,6 @@ public class Interaction : MonoBehaviour
 
         if(dialog_end)
         {
-          
             C_Uidown = StartCoroutine(UIDown(playerconversation));
             C_Uiup = StartCoroutine(UIUp(playingui));
             if(upok&&downok)

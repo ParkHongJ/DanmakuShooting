@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9142132893604069405}
   m_Layer: 0
   m_Name: Attack_4_Beam
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,6 +48,7 @@ MonoBehaviour:
   Distance: 10
   Delay: 0.25
   LiveTime: 2
+  Owner: {fileID: 0}
 --- !u!120 &9142132893604069405
 LineRenderer:
   m_ObjectHideFlags: 0

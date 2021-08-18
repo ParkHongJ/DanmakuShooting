@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7878252185005863326}
   m_Layer: 0
   m_Name: Attack_2_Sand
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,3 +112,4 @@ MonoBehaviour:
   Delay: 0.25
   LiveTime: 1.25
   Damage: 10
+  Owner: {fileID: 0}

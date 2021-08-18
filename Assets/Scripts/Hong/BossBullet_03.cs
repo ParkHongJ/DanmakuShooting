@@ -4,48 +4,19 @@ using UnityEngine;
 
 public class BossBullet_03 : MonoBehaviour
 {
-    // Update is called once per frame
+    // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine("Attack", 2);
+        
     }
-    IEnumerator Attack(float delayTime)
-    {
-        yield return new WaitForSeconds(delayTime);
-        MonBullet_02();
-        StartCoroutine("Attack", 2);
-    }
-   
-    public Transform firePos;
 
-    public GameObject BulletObj;
-    public float bulletSpeed;
-    public void MonBullet_01()
+    // Update is called once per frame
+    void Update()
     {
-        GameObject bullet = Instantiate(BulletObj);
-        bullet.SetActive(true);
-        bullet.transform.position = firePos.position;
-        bullet.transform.rotation = firePos.rotation;
-        Rigidbody rigid = bullet.GetComponent<Rigidbody>();
-        rigid.AddForce(firePos.forward * bulletSpeed, ForceMode.Impulse);
+        
     }
-    public void MonBullet_02()
+    IEnumerator Attack()
     {
-        for (int i = 0; i < 5; i++)
-        {
-            firePos.localEulerAngles = new Vector3(0, 45 - (i * 22.5f), 0);
-            MonBullet_01();
-        }
-        firePos.localEulerAngles = Vector3.zero;
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        IHit ihit;
-        ihit = collision.gameObject.GetComponent<IHit>();
-
-        if (ihit != null)
-        {
-            //StopCoroutine(Attack());
-        }
+        yield return new WaitForSeconds(.5f);
     }
 }

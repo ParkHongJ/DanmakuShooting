@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 96594264814375190}
   m_Layer: 0
   m_Name: Trail
-  m_TagString: Bullet
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,13 +146,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4517809171266662}
+  - component: {fileID: 114101770064945952}
   - component: {fileID: 199073291066996958}
   - component: {fileID: 198007904117522096}
   - component: {fileID: 65932595672012692}
   - component: {fileID: 54526025840063382}
   m_Layer: 0
   m_Name: vfx_Projectile_ArrowBlue
-  m_TagString: Bullet
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,6 +176,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114101770064945952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170744857039610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12ba759cd568c0e47a7018ab70867a0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotate: 0
+  rotateAmount: 45
+  bounce: 0
+  bounceForce: 10
+  speed: 45
+  accuracy: 95
+  fireRate: 4
+  muzzlePrefab: {fileID: 1752905781611240, guid: a150ddd267ffc1b428ae91d94b828b02,
+    type: 3}
+  hitPrefab: {fileID: 1735349400919506, guid: a17580581e360e74db460cc3d5dc0396, type: 3}
+  trails:
+  - {fileID: 1048663460839562}
 --- !u!199 &199073291066996958
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -195,6 +220,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 692dfdefcd910164cbc23e29df21b0ef, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4989,7 +5015,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1170744857039610}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.256, y: 0.283, z: 1.03}
@@ -5008,8 +5034,8 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 2
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1355984127163962
 GameObject:
   m_ObjectHideFlags: 0
@@ -5023,7 +5049,7 @@ GameObject:
   - component: {fileID: 199087776913714618}
   m_Layer: 0
   m_Name: Triangles
-  m_TagString: Bullet
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9720,6 +9746,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 692dfdefcd910164cbc23e29df21b0ef, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9776,7 +9803,7 @@ GameObject:
   - component: {fileID: 199968709438726574}
   m_Layer: 0
   m_Name: Beam
-  m_TagString: Bullet
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14473,6 +14500,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 692dfdefcd910164cbc23e29df21b0ef, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14529,7 +14557,7 @@ GameObject:
   - component: {fileID: 199797455780701384}
   m_Layer: 0
   m_Name: ArrowAB
-  m_TagString: Bullet
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19311,6 +19339,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 0cb3812534f133141a68bfcbe23acb07, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
