@@ -224,7 +224,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 198181270326050850, guid: c2b318905b842b34fbcd30056dc06ee0,
+        type: 3}
+      propertyPath: LightsModule.light
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 198575107678247754, guid: c2b318905b842b34fbcd30056dc06ee0,
+        type: 3}
+      propertyPath: LightsModule.light
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 199422597222687222, guid: c2b318905b842b34fbcd30056dc06ee0,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199561757109601946, guid: c2b318905b842b34fbcd30056dc06ee0,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199820664752431246, guid: c2b318905b842b34fbcd30056dc06ee0,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114096453492018784, guid: c2b318905b842b34fbcd30056dc06ee0, type: 3}
+    - {fileID: 54780134100305680, guid: c2b318905b842b34fbcd30056dc06ee0, type: 3}
+    - {fileID: 65138394354385980, guid: c2b318905b842b34fbcd30056dc06ee0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c2b318905b842b34fbcd30056dc06ee0, type: 3}
 --- !u!4 &5352453790631819217 stripped
 Transform:
