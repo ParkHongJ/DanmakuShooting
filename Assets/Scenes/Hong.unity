@@ -2089,6 +2089,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2375395300936989361, guid: 59f033dbd1b630c4ab653e6c40d3e1d2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2448374818685162961, guid: 59f033dbd1b630c4ab653e6c40d3e1d2,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2199,6 +2204,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8509329000974704843, guid: 59f033dbd1b630c4ab653e6c40d3e1d2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.002
+      objectReference: {fileID: 0}
     - target: {fileID: 8568374974585681478, guid: 59f033dbd1b630c4ab653e6c40d3e1d2,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2272,6 +2282,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Monster3
+      objectReference: {fileID: 0}
+    - target: {fileID: 804120460281940798, guid: bcff391fad55bff438fb9dc1cf528f3d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.019
       objectReference: {fileID: 0}
     - target: {fileID: 3863723735441665381, guid: bcff391fad55bff438fb9dc1cf528f3d,
         type: 3}
@@ -2468,7 +2483,7 @@ PrefabInstance:
     - target: {fileID: 7315685128803671595, guid: 88cee02755ee72a4bb54fbac9acaf3e5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 23.73
+      value: 20.27
       objectReference: {fileID: 0}
     - target: {fileID: 7315685128803671595, guid: 88cee02755ee72a4bb54fbac9acaf3e5,
         type: 3}
@@ -2478,7 +2493,7 @@ PrefabInstance:
     - target: {fileID: 7315685128803671595, guid: 88cee02755ee72a4bb54fbac9acaf3e5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 5.4
       objectReference: {fileID: 0}
     - target: {fileID: 7315685128803671595, guid: 88cee02755ee72a4bb54fbac9acaf3e5,
         type: 3}

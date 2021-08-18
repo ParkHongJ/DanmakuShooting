@@ -133,6 +133,7 @@ public class EnemyAI : AttackPattern, IHit
         CurrentState = AI_ENEMY_STATE.CHASE;
 
         animator.SetTrigger("Patrol");
+        
         agent.Resume();
         while (CurrentState == AI_ENEMY_STATE.CHASE)
         {
