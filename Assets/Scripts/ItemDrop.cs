@@ -19,7 +19,7 @@ public static class UnityObjectExtensions
         return obj;
     }
 }
-public class ItemDrop : MonoBehaviour
+public class ItemDrop : MonoBehaviour, IHit
 {
     public int hp;
     public bool isdead;
@@ -130,6 +130,19 @@ public class ItemDrop : MonoBehaviour
             isdead = false;
         }
 
+    }
+
+    public void GetDamaged(float damaged, int Type)
+    {
+        Debug.Log("damage");
+        hp -= (int)damaged;
+    }
+
+    public void GetDamaged(float damaged)
+    {
+
+        Debug.Log("damage");
+        hp -= (int)damaged;
     }
 }
 

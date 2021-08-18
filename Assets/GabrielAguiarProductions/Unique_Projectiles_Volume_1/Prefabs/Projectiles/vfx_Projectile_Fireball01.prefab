@@ -24143,6 +24143,7 @@ GameObject:
   - component: {fileID: 198969432181178134}
   - component: {fileID: 54013935248017186}
   - component: {fileID: 136707689597492628}
+  - component: {fileID: -8539118015471730509}
   m_Layer: 0
   m_Name: vfx_Projectile_Fireball01
   m_TagString: Untagged
@@ -28988,3 +28989,17 @@ CapsuleCollider:
   m_Height: 0.4
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0.6}
+--- !u!114 &-8539118015471730509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961964258596952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e33664d31149f5a4f856ea153e20d102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  damage: 10

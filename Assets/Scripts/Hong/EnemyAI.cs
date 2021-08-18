@@ -170,7 +170,7 @@ public class EnemyAI : AttackPattern, IHit
         //공격 주기
         float ElapsedTime = 0f;
         agent.Stop();
-        animator.SetTrigger("Attack");
+        //animator.SetTrigger("Attack");
 
         while (CurrentState == AI_ENEMY_STATE.ATTACK)
         {
@@ -184,7 +184,7 @@ public class EnemyAI : AttackPattern, IHit
             }
             if (ElapsedTime >= AttackDelay)
             {
-                //animator.SetTrigger("Attack");
+                animator.SetTrigger("Attack");
                 ElapsedTime = 0f;
 
                 //공격시작

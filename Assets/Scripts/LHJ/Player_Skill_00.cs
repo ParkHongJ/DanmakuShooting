@@ -55,6 +55,14 @@ public class Player_Skill_00 : MonoBehaviour, IPlayer_Skill
         Player pl;
         if (hit.CompareTag("Bullet"))
             return;
+        // ------
+        //hit2 = hit.GetComponentInParent<IHit>();
+        //if(hit2 != null)
+        //{
+        //    hit2.GetDamaged(Damage);
+        //}
+        // ------
+
         if (hit.TryGetComponent<IHit>(out hit2))
         {
             hit2.GetDamaged(Damage, 0); // 데미지 주기
@@ -62,7 +70,7 @@ public class Player_Skill_00 : MonoBehaviour, IPlayer_Skill
                 pl.lastEnemy = hit.gameObject;
         }
 
-        Quaternion rot = Quaternion.FromToRotation(Vector3.up, hit.transform.forward);
+      Quaternion rot = Quaternion.FromToRotation(Vector3.up, hit.transform.forward);
         Vector3 pos = this.transform.position;
 
         if (hitPrefab != null)
