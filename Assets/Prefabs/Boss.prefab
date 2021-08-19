@@ -362,10 +362,24 @@ MonoBehaviour:
   BaseTrack: []
   Track_01:
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   Track_02: []
   Track_03: []
-  monsterType: 0
+  monsterType: 1
+  monsterAttack: 0
+  player: {fileID: 0}
   speed: 5
+  BossBullet1: {fileID: 1305997383178436, guid: 5b54c2e1bf70dd248902db6814a270fb,
+    type: 3}
+  BossBullet2: {fileID: 1846563170864394, guid: 3bbebb6123d7fdd4fa718a9ea192c837,
+    type: 3}
+  BossBullet3: {fileID: 2351248335731358326, guid: c3c5ef0b87fcca445adc78a78a6acec1,
+    type: 3}
+  bulletSpeed: 0
+  firePos: {fileID: 0}
+  GlobalDelay: 17.6
 --- !u!1 &7315685128847157164
 GameObject:
   m_ObjectHideFlags: 0
