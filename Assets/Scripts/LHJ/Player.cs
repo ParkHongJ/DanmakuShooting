@@ -18,7 +18,6 @@ public class Player : MonoBehaviour, IHit
     public GameObject playerCamera = null;
     public Transform firePos = null; // 발사 위치
     public GameObject teleEffect = null;
-    public UnityEngine.UI.Image flashCoolTime = null;
     public GameObject lastEnemy = null;
     public bool isAlive = true; // 살아있는가
     public bool isMovable = true; // 움직일 수 있는가
@@ -61,13 +60,6 @@ public class Player : MonoBehaviour, IHit
         canFlash = true; // 점멸중인가?
         isMovable = true; // 움직일 수 있는가
         isAttackable = true; // 공격
-        if(flashCoolTime != null)
-        {
-            flashCoolTime.type = UnityEngine.UI.Image.Type.Filled;
-            flashCoolTime.fillMethod = UnityEngine.UI.Image.FillMethod.Radial360;
-            flashCoolTime.fillOrigin = (int)UnityEngine.UI.Image.Origin360.Top;
-            flashCoolTime.fillClockwise = false;
-        }
     }
 
     void FixedUpdate() // 물리 관련
@@ -86,10 +78,6 @@ public class Player : MonoBehaviour, IHit
 
     void Update() // 체크
     {
-        if (flashCoolTime != null)
-        {
-            flashCoolTime.fillAmount = 2;
-        }
         if (isAlive)
         {
             if (hp <= 0) // 체력이 없으면
