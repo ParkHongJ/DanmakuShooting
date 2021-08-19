@@ -6,4 +6,9 @@ public class NPC : MonoBehaviour
 {
     public string situation,  name,npc_name;
     public int db_num;
+
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
+    }
 }

@@ -19,7 +19,7 @@ public static class UnityObjectExtensions
         return obj;
     }
 }
-public class ItemDrop : MonoBehaviour, IHit
+public class ItemDrop : MonoBehaviour
 {
     public int hp;
     public bool isdead;
@@ -28,25 +28,30 @@ public class ItemDrop : MonoBehaviour, IHit
     public GameObject b_col;
     public GameObject canbreakobj;
     public GameObject parent;
+    public GameObject fire;
     public Vector3 worldpos;
-    private bool w_null, b_null;
+    private bool w_null, b_null, e_null;
+
     private void Start()
     {
         w_null = false;
         b_null = false;
+        e_null = false;
         hp = 10;
         isdead = false;
         if (wreck == null)
             w_null = true;
         if (b_col == null)
             b_null = true;
+        if (fire == null)
+            e_null = true;
     }
 
     private bool Candrop()
     {
         int ran = Random.Range(1, 11);
 
-        return true;
+        return true;///////////////////////////////////////////////////////////////////////////////////없애야할거
         if (ran == 1)
             return true;
         else
@@ -78,12 +83,14 @@ public class ItemDrop : MonoBehaviour, IHit
         }
         return -1;
     }
+
     public GameObject item_;
+
     private void SetDropObj()
     {
         int num = ChoseDropObjNum();
-        dropobj = Resources.Load<GameObject>("Prefab/"+Global_Data.Instance.ItemList[num-1].itemname);
-       item_= Instantiate(dropobj);
+        dropobj = Resources.Load<GameObject>("Prefab/" + Global_Data.Instance.ItemList[num - 1].itemname);
+        item_ = Instantiate(dropobj);
         dropobj.GetComponent<DropItemNum>().SetNum(int.Parse(Global_Data.Instance.ItemList[num - 1].num));
         //dropobj.transform.SetParent(parent.transform);
         //item_.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
@@ -103,7 +110,7 @@ public class ItemDrop : MonoBehaviour, IHit
             canbreakobj.SetActive(false);
             if (!w_null)
                 wreck.SetActive(true);
-            if(!b_null)
+            if (!b_null)
                 b_col.SetActive(true);
         }
         else
@@ -115,34 +122,48 @@ public class ItemDrop : MonoBehaviour, IHit
                 b_col.SetActive(true);
         }
     }
+    public int nunn = 100;
+    private IEnumerator Sinking()
+    {
+
+        //yield return new WaitForSeconds(2f);
+        for (int i = 0; i <= nunn; i++)
+        {
+            fire.transform.position = new Vector3(fire.transform.position.x, fire.transform.position.y - 0.1f, fire.transform.position.z);
+            yield return new WaitForSeconds(0.02f);
+        }
+    }
+    void Breaking()
+    {
+        canbreakobj.SetActive(false);
+        if (!w_null)
+        {
+            wreck.SetActive(true);
+        }
+        if (!b_null)
+        {
+            b_col.SetActive(true);
+        }
+        StartCoroutine(Sinking());
+    }
 
     // Update is called once per frame
     void Update()
     {
-  
+
         if (hp <= 0)
         {
             isdead = true;
         }
         if (isdead)
         {
-            Itemdrop();
+            if (tag == "Pillar")
+                Itemdrop();
+            if (tag == "Stove")
+                Breaking();
             isdead = false;
         }
 
-    }
-
-    public void GetDamaged(float damaged, int Type)
-    {
-        Debug.Log("damage");
-        hp -= (int)damaged;
-    }
-
-    public void GetDamaged(float damaged)
-    {
-
-        Debug.Log("damage");
-        hp -= (int)damaged;
     }
 }
 

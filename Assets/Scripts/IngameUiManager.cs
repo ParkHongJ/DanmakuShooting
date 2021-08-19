@@ -13,7 +13,7 @@ public class IngameUiManager : MonoBehaviour
 
     public Slider OptionIngame_BGSlider;
     public Slider OptionIngame_SFXSlider;
-
+    public Player Player_s;
     public void Option_X_Ingame()
     {
         Option_click_Ingame.SetActive(false);
@@ -32,12 +32,13 @@ public class IngameUiManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
         //게임 중 옵션 클릭 버튼 눌렀는지 확인
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -82,8 +83,8 @@ public class IngameUiManager : MonoBehaviour
                     PlayingUI.SetActive(false);
                     Option_click_Ingame.SetActive(false);
                     //-----------------------옵션 정보들 mainpage 옵션에 넘겨주는 작업---------------------
-                   // Option_BGSlider.value = OptionIngame_BGSlider.value;
-                  //  Option_SFXSlider.value = OptionIngame_SFXSlider.value;
+                    // Option_BGSlider.value = OptionIngame_BGSlider.value;
+                    //  Option_SFXSlider.value = OptionIngame_SFXSlider.value;
                 }
             }
         }

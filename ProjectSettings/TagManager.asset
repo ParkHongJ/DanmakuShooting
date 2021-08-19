@@ -11,6 +11,8 @@ TagManager:
   - Enemy
   - WayPoints
   - Bullet
+  - Stove
+  - Pillar
   layers:
   - Default
   - TransparentFX

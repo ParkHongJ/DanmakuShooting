@@ -103,12 +103,13 @@ public class UIManager : MonoBehaviour
                 RLClick.SetActive(false);
                 break;
             case 2:
-                player.transform.localRotation = Quaternion.Euler(0, 180, 0);
+                player.transform.localRotation = Quaternion.Euler(0, 90, 0);
                 player.GetComponent<Animator>().SetInteger("moving", 4);
                 WASD.SetActive(false);
                 Space.SetActive(true);
                 break;
             case 3:
+                player.transform.localRotation = Quaternion.Euler(0, 180, 0);
                 Space.SetActive(false);
                 QE.SetActive(true);
                 player.GetComponent<Animator>().SetInteger("moving", 0);

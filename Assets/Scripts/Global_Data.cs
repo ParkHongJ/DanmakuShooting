@@ -12,6 +12,9 @@ public class Global_Data : MonoBehaviour
     public List<Dialog> DialogList = new List<Dialog>();
     public bool IsIngame = true;    //ingame 여부 확인
     public bool IsGameOver = false;
+
+    public int st1_mon = 8, st2_mon = 50;
+
     public static Global_Data Instance
     {
         get
