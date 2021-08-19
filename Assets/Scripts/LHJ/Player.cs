@@ -24,12 +24,14 @@ public class Player : MonoBehaviour, IHit
     public bool isMovable = true; // 움직일 수 있는가
     public bool isAttackable = true; // 공격
     public bool canFlash = true; // 점멸 가능한가
-
+    public CooltimeScript coolskill1, coolskill2;
     [Tooltip("스킬 데미지")]
     public float[] skillDamage = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
 
     //private float viewX, viewY, viewZ; // 보는 방향
     private float moveX, moveZ; // 이동 값
+    private bool startskillset = true;
+
 
     [Tooltip("총알 프리팹")]
     public GameObject[] bullet; // 0 1 2 3 4 5
@@ -41,9 +43,9 @@ public class Player : MonoBehaviour, IHit
     [Tooltip("포션 개수")]
     private int potion = 0; // 포션 개수
     [Tooltip("공격 1 타입")]
-    public int attack1_type = 0; // 공격 타입
+    public int attack1_type = 3; // 공격 타입
     [Tooltip("공격 2 타입")]
-    public int attack2_type = 0; // 공격 타입
+    public int attack2_type = 3; // 공격 타입
 
     void Start() // 초기 설정
     {
@@ -193,40 +195,60 @@ public class Player : MonoBehaviour, IHit
 
     void Attack(int _index, int _click) // 공격 타입 판단
     {
+        float cooltime = 0.0f;
         switch (_index)
         {
             // Attack1 - FirePos에서 발사
             case 0: // 바위 발사
                 Attack1(_index, 0.25f, skillDamage[_index]);
+                cooltime = 0.25f;
                 break;
             case 3: // 화염구
                 Attack1(_index, 0.25f, skillDamage[_index]);
+                cooltime = 0.25f;
                 break;
 
 
             // Attack2 - FirePos위치 바닥부터 발사
             case 1: // 가시 공격
                 Attack2(_index, 0.5f, skillDamage[_index]);
+                cooltime = 0.5f;
                 break;
 
             // Attack3 - 마우스 지점에서 생성
             case 2: // 모래 늪
                 Attack3(_index, 0.75f, skillDamage[_index]);
+                cooltime = 0.75f;
                 break;
             case 5: // 폭발
                 Attack3(_index, 0.75f, skillDamage[_index]);
+                cooltime = 0.75f;
                 break;
 
             // Attack4 - 토글식
             case 4: // 빔
                 StartCoroutine(Attack4(_index, 0.5f, skillDamage[_index], 2.0f));
+                cooltime = 0.5f;
                 break;
         }
-        if (_index != 4)
+        if (_index != 4)                                                                                                                       //
             if (_click == 0)
                 animator.SetTrigger("attack1");
             else if (_click == 1)
                 animator.SetTrigger("attack2");
+        if(startskillset==true)
+        {
+            coolskill1.UseSkill(cooltime);
+            coolskill2.UseSkill(cooltime);
+        }
+        else
+        {
+            if (_index<4)
+                coolskill1.UseSkill(cooltime);
+            else
+                coolskill2.UseSkill(cooltime);
+        }
+      
     }
 
     void Attack1(int _index, float _cooltime, float _damage) // 발사
@@ -441,4 +463,15 @@ public class Player : MonoBehaviour, IHit
     {
         Damaged(damaged);
     }
+
+    public void SetStartSkillSetting()
+    {
+        startskillset = !startskillset;
+        print("false");
+    }
+    public bool GetStartSkillSetting()
+    {
+        return startskillset;
+    }
+
 }

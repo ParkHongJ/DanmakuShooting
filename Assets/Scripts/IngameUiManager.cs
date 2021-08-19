@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class IngameUiManager : MonoBehaviour
 {
     public GameObject PlayingUI;
@@ -10,7 +11,7 @@ public class IngameUiManager : MonoBehaviour
     public GameObject GameoverBlur;
     public GameObject GameoverT;
     public GameObject AnyButtonclickT;
-
+    public Image playerhp;
     public Slider OptionIngame_BGSlider;
     public Slider OptionIngame_SFXSlider;
     public Player Player_s;
@@ -38,7 +39,7 @@ public class IngameUiManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        playerhp.fillAmount = Player_s.GetHP() * 0.01f;
         //게임 중 옵션 클릭 버튼 눌렀는지 확인
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -51,7 +52,7 @@ public class IngameUiManager : MonoBehaviour
             }
         }
         //게임 오버가 되었으면
-        if (Global_Data.Instance.IsGameOver == true)
+        if (Player_s.isAlive == false)
         {
             GameoverBlur.SetActive(true);
             GameoverT.SetActive(true);
@@ -63,7 +64,7 @@ public class IngameUiManager : MonoBehaviour
             AnyButtonclickT.SetActive(true);
             AnyButtonclickT.GetComponent<Blink>().enabled = true;
         }
-        if (Global_Data.Instance.IsGameOver == true)//게임 오버 화면 나오고 마우스 클릭 했을때 나머지 원상태로 되돌리고, 메인 화면 으로 돌아가게 설정
+        if (Player_s.isAlive == false)//게임 오버 화면 나오고 마우스 클릭 했을때 나머지 원상태로 되돌리고, 메인 화면 으로 돌아가게 설정
         {
             if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
             {
@@ -82,6 +83,7 @@ public class IngameUiManager : MonoBehaviour
                     Global_Data.Instance.IsIngame = false;
                     PlayingUI.SetActive(false);
                     Option_click_Ingame.SetActive(false);
+                    SceneManager.LoadScene("SampleScene");
                     //-----------------------옵션 정보들 mainpage 옵션에 넘겨주는 작업---------------------
                     // Option_BGSlider.value = OptionIngame_BGSlider.value;
                     //  Option_SFXSlider.value = OptionIngame_SFXSlider.value;
