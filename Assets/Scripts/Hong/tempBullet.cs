@@ -19,6 +19,7 @@ public class tempBullet : MonoBehaviour
     float RotateSpeed = 3f;
     public bool IsArrival = false;
 
+    public float Damage = 10f;
     float timer = 0.0f;
     float waitingTime = 1.5f;
     // Update is called once per frame
@@ -46,18 +47,37 @@ public class tempBullet : MonoBehaviour
 
         transform.Rotate(Vector3.up * RotateSpeed);
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Wall"))
-        {
-            Destroy(gameObject);
-        }
-        ihit = other.GetComponent<IHit>();
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if(other.CompareTag("Bullet"))
+    //    {
+    //        return;
+    //    }
+    //    IHit ihit;
+
+    //    ihit = other.GetComponent<IHit>();
+    //    if( ihit != null)
+    //    {
+    //        ihit.GetDamaged(Damage);
+    //    }
+
+    //}
+    float delay = 0.5f;
     private void OnTriggerStay(Collider other)
     {
-        if( ihit != null )//충돌판정이 가능한 오브젝트면
+        if (other.CompareTag("Bullet"))
         {
+            return;
+        }
+        IHit ihit = other.GetComponent<IHit>();
+        if ( ihit != null )//충돌판정이 가능한 오브젝트면
+        {
+            float ElapsedTime = 0f;
+            ElapsedTime += Time.deltaTime;
+            if(ElapsedTime >= delay)
+            {
+                ihit.GetDamaged(Damage);
+            }
 
         }
     }

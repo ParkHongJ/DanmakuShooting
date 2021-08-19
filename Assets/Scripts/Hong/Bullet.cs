@@ -16,7 +16,10 @@ public class Bullet : MonoBehaviour
     AttackType attackType = AttackType.Ground;
     private void OnTriggerEnter(Collider other)
     {
-
+        if(other.CompareTag("Enemy"))
+        {
+            return;
+        }
         IHit ihit = other.GetComponent<IHit>();
         if ( ihit != null )
         {
