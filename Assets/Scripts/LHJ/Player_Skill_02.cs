@@ -10,10 +10,13 @@ public class Player_Skill_02 : MonoBehaviour, IPlayer_Skill
     public float LiveTime = 1.25f;
     public float Damage = 1.0f;
     public GameObject Owner = null;
+    public GameObject EffectObj = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (EffectObj)
+            Instantiate(EffectObj, this.transform.position, Quaternion.Euler(Vector3.zero));
         InvokeRepeating("Attack", 0.0f, Delay); // 공격 판정 반복
         Death();
     }
@@ -26,9 +29,10 @@ public class Player_Skill_02 : MonoBehaviour, IPlayer_Skill
 
     void Attack()
     {
-        Collider[] colliders = Physics.OverlapSphere(new Vector3(this.transform.position.x, this.transform.position.y + Height, this.transform.position.z), Radius);
         IHit hit2;
         Player pl;
+        Collider[] colliders = Physics.OverlapSphere(new Vector3(this.transform.position.x, this.transform.position.y + Height, this.transform.position.z), Radius);
+        //Physics.CapsuleCastAll()
         foreach (Collider hit in colliders)
         {
             if (hit.CompareTag("Player"))
@@ -51,6 +55,7 @@ public class Player_Skill_02 : MonoBehaviour, IPlayer_Skill
                 }
             }
         }
+
     }
     void Death()
     {

@@ -13,7 +13,7 @@ public class Player_Skill_05 : MonoBehaviour, IPlayer_Skill
     // Start is called before the first frame update
     void Start()
     {
-        Attack();
+        Invoke("Attack",0.1f);
         Death();
     }
 
