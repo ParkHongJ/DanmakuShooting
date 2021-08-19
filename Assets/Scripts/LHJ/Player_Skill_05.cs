@@ -9,11 +9,15 @@ public class Player_Skill_05 : MonoBehaviour, IPlayer_Skill
     public float Damage = 1.0f;
     public float LiveTime = 1.0f;
     public GameObject Owner = null;
+    public GameObject EffectObj = null;
 
     // Start is called before the first frame update
     void Start()
     {
         Invoke("Attack",0.1f);
+
+        if (EffectObj)
+            Instantiate(EffectObj, this.transform.position, Quaternion.Euler(Vector3.zero));
         Death();
     }
 
