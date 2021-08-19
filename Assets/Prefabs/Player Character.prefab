@@ -2007,6 +2007,7 @@ MonoBehaviour:
   teleEffect: {fileID: 494693327083467325}
   lastEnemy: {fileID: 0}
   isAlive: 1
+  isInvincible: 0
   isMovable: 1
   isAttackable: 1
   canFlash: 1
@@ -2026,7 +2027,7 @@ MonoBehaviour:
   - {fileID: 1541045715116015461, guid: 7cb7917766fdb7840b3331519474a964, type: 3}
   - {fileID: 601308616411043470, guid: d33af66f097dc5546abda5b7f7c5c8a4, type: 3}
   - {fileID: 8304804325415651043, guid: c6d15cd0e71e646449b6e204c627bea3, type: 3}
-  hp: 100
+  hp: 1000
   potion: 0
   attack1_type: 3
   attack2_type: 3
@@ -2038,10 +2039,10 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7732077078337276511}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1928763572
 MonoBehaviour:
@@ -2067,7 +2068,7 @@ MonoBehaviour:
   iteminforUI: {fileID: 0}
   enter_item: {fileID: 0}
   item_infor_text: {fileID: 0}
-  Player_s: {fileID: 0}
+  Player_s: {fileID: 7732077078337276509}
   potion_amount: {fileID: 0}
 --- !u!1 &7732077078344417043
 GameObject:

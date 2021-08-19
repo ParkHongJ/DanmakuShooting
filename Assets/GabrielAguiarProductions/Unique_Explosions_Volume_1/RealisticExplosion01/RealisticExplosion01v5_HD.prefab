@@ -23565,7 +23565,7 @@ GameObject:
   - component: {fileID: 198562898134419192}
   m_Layer: 0
   m_Name: RealisticExplosion01v5_HD
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37800,7 +37800,7 @@ GameObject:
   - component: {fileID: 7118481639536701627}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
