@@ -19,7 +19,7 @@ public static class UnityObjectExtensions
         return obj;
     }
 }
-public class ItemDrop : MonoBehaviour, IHit
+public class ItemDrop : MonoBehaviour,IHit
 {
     public int hp;
     public bool isdead;
@@ -37,7 +37,7 @@ public class ItemDrop : MonoBehaviour, IHit
         w_null = false;
         b_null = false;
         e_null = false;
-        hp = 10;
+        hp = 3;
         isdead = false;
         if (wreck == null)
             w_null = true;
@@ -51,12 +51,13 @@ public class ItemDrop : MonoBehaviour, IHit
     {
         int ran = Random.Range(1, 11);
 
-        return true;///////////////////////////////////////////////////////////////////////////////////없애야할거
+        //return true;///////////////////////////////////////////////////////////////////////////////////없애야할거
         if (ran == 1)
             return true;
         else
             return false;
     }
+
     private int ChoseDropObjNum()//itemlist에 있는 아이템 번호로 리턴
     {
         int ran = Random.Range(1, 11);
@@ -162,11 +163,11 @@ public class ItemDrop : MonoBehaviour, IHit
             if (tag == "Stove")
                 Breaking();
             isdead = false;
-
             gameObject.GetComponent<ItemDrop>().enabled = false;
         }
 
     }
+
     public void GetDamaged(float damaged, int Type)
     {
         hp -= (int)damaged;
