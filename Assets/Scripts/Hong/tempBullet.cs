@@ -47,21 +47,21 @@ public class tempBullet : MonoBehaviour
 
         transform.Rotate(Vector3.up * RotateSpeed);
     }
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if(other.CompareTag("Bullet"))
-    //    {
-    //        return;
-    //    }
-    //    IHit ihit;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bullet"))
+        {
+            return;
+        }
+        IHit ihit;
 
-    //    ihit = other.GetComponent<IHit>();
-    //    if( ihit != null)
-    //    {
-    //        ihit.GetDamaged(Damage);
-    //    }
+        ihit = other.GetComponent<IHit>();
+        if (ihit != null)
+        {
+            ihit.GetDamaged(Damage);
+        }
 
-    //}
+    }
     float delay = 0.5f;
     private void OnTriggerStay(Collider other)
     {

@@ -24146,7 +24146,7 @@ GameObject:
   - component: {fileID: -8539118015471730509}
   m_Layer: 0
   m_Name: vfx_Projectile_Fireball01
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

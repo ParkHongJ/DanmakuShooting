@@ -66,8 +66,4 @@ public class CooltimeScript : MonoBehaviour
 
     //    yield break;
     //}
-    private void Update()
-    {
-     
-    }
 }

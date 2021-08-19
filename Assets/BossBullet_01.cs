@@ -9,6 +9,10 @@ public class BossBullet_01 : MonoBehaviour
     public float Damage;
     private void OnTriggerEnter(Collider other)
     {
+        if(other.CompareTag("Enemy") || other.CompareTag("Bullet"))
+        {
+            return;
+        }
         IHit ihit = other.GetComponent<IHit>();
         if (ihit != null)
         {
@@ -16,6 +20,8 @@ public class BossBullet_01 : MonoBehaviour
         }
         //총알이펙트를 끄고
         BulletEffect.SetActive(false);
+
+        ExplodedEffect.transform.parent = null;
         //폭발이펙트를 킴
         ExplodedEffect.SetActive(true);
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BossBullet_03 : MonoBehaviour
 {
+    float damage;
     // Update is called once per frame
     void Start()
     {
@@ -38,14 +39,20 @@ public class BossBullet_03 : MonoBehaviour
         }
         firePos.localEulerAngles = Vector3.zero;
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         IHit ihit;
-        ihit = collision.gameObject.GetComponent<IHit>();
+        ihit = other.gameObject.GetComponent<IHit>();
 
         if (ihit != null)
         {
-            //StopCoroutine(Attack());
+            ihit.GetDamaged(damage);
+            StopCoroutine("Attack");
+            Destroy(gameObject);
         }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        
     }
 }

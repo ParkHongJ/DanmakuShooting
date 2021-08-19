@@ -110,10 +110,10 @@ public class EnemyAI : AttackPattern, IHit
 
             if (Vector3.Distance(transform.position, RandomDest.position) <= DistEps)
             {
-                Debug.Log("distance:");
-                Debug.Log(Vector3.Distance(transform.position, RandomDest.position));
-                Debug.Log("DistEps");
-                Debug.Log(DistEps);
+                //Debug.Log("distance:");
+                //Debug.Log(Vector3.Distance(transform.position, RandomDest.position));
+                //Debug.Log("DistEps");
+                //Debug.Log(DistEps);
                 //yield return null;
                 //Reset();
                 StartCoroutine(Reset());
@@ -414,6 +414,6 @@ public class EnemyAI : AttackPattern, IHit
 
     public void GetDamaged(float damaged)
     {
-        throw new System.NotImplementedException();
+        hp -= damage;
     }
 }

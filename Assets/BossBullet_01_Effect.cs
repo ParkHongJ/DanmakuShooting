@@ -18,6 +18,10 @@ public class BossBullet_01_Effect : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Enemy") || other.CompareTag("Bullet"))
+        {
+            return;
+        }
         IHit ihit = other.GetComponent<IHit>();
 
         if( ihit != null)

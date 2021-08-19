@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossAI : MonoBehaviour, IHit
 {
@@ -44,22 +45,30 @@ public class BossAI : MonoBehaviour, IHit
         Patrol();
         //MonBullet_02();
     }
+    [SerializeField]
     float ElapsedTime;
+
+    public GameObject t_50, t_25;
+    private bool first_50 = true, first_25 = true;
     void Update()
     {
-        if(hp <= ((hp * 25 ) / 100 ) && UseBullet_5)
+        
+
+
+
+        if (hp <= ((hp * 25 ) / 100 ) && UseBullet_5)
         {
             //animator.SetTrigger("Attack_04");
         }
-        ElapsedTime += Time.deltaTime;
         if (hp > 0)
         {
             if ( ElapsedTime >= GlobalDelay )
             {
                 ElapsedTime = 0f;
                 Attack();
+                //Patrol();
             }
-            if (isMove)
+            else if (isMove)
             {
                 //도착했으면
                 if (Vector3.Distance(transform.position, destination) <= 1f)
@@ -78,20 +87,42 @@ public class BossAI : MonoBehaviour, IHit
             Die();
         }
     }
+    private void LateUpdate()
+    {
+        if(hp>0)
+        {
+            ElapsedTime += Time.deltaTime;
+
+        }
+    }
+    [SerializeField]
     int Track1 = 0;
+
+    [SerializeField]
     int Track2 = 0;
+
+    [SerializeField]
     int Track3 = 0;
     bool IsArrival;
+
+    public GameObject destroywall_1;
+    public GameObject destroywall_2;
+    public GameObject destroywall_3;
+    public GameObject destroywall_4;
     void Attack()
     {
+        Debug.Log("공격");
         if(player == null)
         {
             return;
         }
         isMove = false;
-        transform.forward = player.transform.position;
-        if (hp > ((hp * 50) / 100))
+
+        StartCoroutine(Delay(3f));
+        transform.LookAt(player.transform);
+        if (hp > 50)
         {
+            Debug.Log("Pause1");
             int random = Random.Range(1, 3);
             switch(random)
             {
@@ -105,8 +136,9 @@ public class BossAI : MonoBehaviour, IHit
                     break;
             }
         }
-        else if(hp <= ((hp * 50) / 100) && hp > ((hp * 25) / 100))
+        else if(hp <= 50 && hp > 25)
         {
+            Debug.Log("Pause2");
             int random = Random.Range(1, 4);
             switch(random)
             {
@@ -127,6 +159,7 @@ public class BossAI : MonoBehaviour, IHit
         }
         else
         {
+            Debug.Log("Pause3");
             int random = Random.Range(1, 5);
             switch (random)
             {
@@ -148,11 +181,13 @@ public class BossAI : MonoBehaviour, IHit
                     break;
             }
         }
+
+        //Invoke("SetDestination", 1f);
     }
     public void BossBullet_05()
     {
         UseBullet_5 = false;
-
+        
 
     }
     public GameObject MonBullet_2;
@@ -281,8 +316,9 @@ public class BossAI : MonoBehaviour, IHit
     }
     public void Die()
     {
+        Debug.Log("죽음");
         animator.SetTrigger("Death");
-        Destroy(this);
+        Destroy(gameObject);
     }
     IEnumerator BBullet_02()
     {
@@ -295,19 +331,68 @@ public class BossAI : MonoBehaviour, IHit
         firePos.localEulerAngles = Vector3.zero;
         yield return null;
     }
+    IEnumerator Delay(float _Delay)
+    {
+        yield return new WaitForSeconds(_Delay);
+        isMove = true;
+    }
     public void GetDamaged(float damaged)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("getdamaged(float) damaged:");
+        Debug.Log(damaged);
+        hp -= damaged; 
+        if (first_50)
+        {
+            if (hp < 50f && hp > 25f)
+            {
+                Debug.Log("11");
+                t_50.SetActive(true);
+            }
+
+            first_50 = false;
+        }
+        if (first_25)
+        {
+            if (hp < 25f)
+            {
+                Debug.Log("22");
+                t_25.SetActive(true);
+            }
+
+            first_25 = false;
+        }
     }
     public void GetDamaged(float damaged, int Type)
     {
-        if( (int)monsterType != Type)
+        Debug.Log("getdamaged(float, type) damaged:");
+        Debug.Log(damaged);
+        if ( (int)monsterType != Type)
         {
             hp -= (damaged / 2);
         }
         else
         {
             hp -= damaged;
+        }
+        if (first_50)
+        {
+            if (hp < 50f && hp > 25f)
+            {
+                Debug.Log("11");
+                t_50.SetActive(true);
+            }
+
+            first_50 = false;
+        }
+        if (first_25)
+        {
+            if (hp < 25f)
+            {
+                Debug.Log("22");
+                t_25.SetActive(true);
+            }
+
+            first_25 = false;
         }
     }
 }

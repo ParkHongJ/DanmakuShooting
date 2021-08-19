@@ -16,7 +16,11 @@ public class Bullet : MonoBehaviour
     AttackType attackType = AttackType.Ground;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Enemy"))
+        if (other.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
+        if (other.CompareTag("Enemy") || other.CompareTag("Bullet"))
         {
             return;
         }
@@ -26,10 +30,7 @@ public class Bullet : MonoBehaviour
             ihit.GetDamaged(damage, (int)attackType);
             Destroy(gameObject);
         }
-        if ( other.CompareTag("Wall"))
-        {
-            Destroy(gameObject);
-        }
+        
         //else
         //{
         //    Destroy(gameObject);
