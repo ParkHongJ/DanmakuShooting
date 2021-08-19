@@ -20,6 +20,7 @@ public class Player : MonoBehaviour, IHit
     public GameObject teleEffect = null;
     public GameObject lastEnemy = null;
     public bool isAlive = true; // 살아있는가
+    public bool isInvincible = false; // 무적
     public bool isMovable = true; // 움직일 수 있는가
     public bool isAttackable = true; // 공격
     public bool canFlash = true; // 점멸 가능한가
@@ -320,6 +321,17 @@ public class Player : MonoBehaviour, IHit
         yield return new WaitForSeconds(_sec);
         canFlash = true;
     }
+
+    IEnumerator InvincibleDelay(float _sec)
+    {
+        float effectTime = 0.0f;
+        while (effectTime < _sec)
+        {
+            yield return new WaitForSeconds(_sec);
+        }
+        isInvincible = false;
+    }
+
     IEnumerator DodgeDelay2(float _sec)
     {
         yield return new WaitForSeconds(_sec);
@@ -349,6 +361,8 @@ public class Player : MonoBehaviour, IHit
 
     void Damaged(float dmg)
     {
+        if (isInvincible)
+            return;
         animator.SetTrigger("damaged");
         this.hp -= dmg;
         if (hp < 0)
@@ -383,6 +397,14 @@ public class Player : MonoBehaviour, IHit
             return pointTolook;
         }
         return Vector3.zero;
+    }
+
+
+    void Respawn(Vector3 _pos, float _hp)
+    {
+        isInvincible = true;
+        this.transform.position = _pos;
+        InvincibleDelay(1.0f);
     }
 
     void Death() // 사망

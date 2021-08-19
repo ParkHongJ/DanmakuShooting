@@ -2010,6 +2010,8 @@ MonoBehaviour:
   isMovable: 1
   isAttackable: 1
   canFlash: 1
+  coolskill1: {fileID: 0}
+  coolskill2: {fileID: 0}
   skillDamage:
   - 1
   - 1
@@ -2025,8 +2027,9 @@ MonoBehaviour:
   - {fileID: 601308616411043470, guid: d33af66f097dc5546abda5b7f7c5c8a4, type: 3}
   - {fileID: 8304804325415651043, guid: c6d15cd0e71e646449b6e204c627bea3, type: 3}
   hp: 100
-  attack1_type: 0
-  attack2_type: 4
+  potion: 0
+  attack1_type: 3
+  attack2_type: 3
 --- !u!135 &1928763576
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2056,6 +2059,8 @@ MonoBehaviour:
   playingui: {fileID: 0}
   p_dialog: {fileID: 0}
   p_image: {fileID: 0}
+  skill1: {fileID: 0}
+  skill2: {fileID: 0}
   m_text: 
   uicamera: {fileID: 0}
   tmp: {fileID: 0}
@@ -2063,6 +2068,7 @@ MonoBehaviour:
   enter_item: {fileID: 0}
   item_infor_text: {fileID: 0}
   Player_s: {fileID: 0}
+  potion_amount: {fileID: 0}
 --- !u!1 &7732077078344417043
 GameObject:
   m_ObjectHideFlags: 0
