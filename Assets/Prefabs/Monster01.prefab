@@ -255,6 +255,7 @@ MonoBehaviour:
   damage: 0
   CurrentState: 1
   CurrentAttack: 6
+  hp: 0
   Waypoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -275,7 +276,7 @@ MonoBehaviour:
   firePosR: {fileID: 5585708483334709073}
   BulletObj2: {fileID: 0}
   BossBullet: {fileID: 0}
-  DistEps: 15
+  DistEps: 3
 --- !u!1 &6343791449873327361
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +393,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6343791449517431942}
     m_Modifications:
+    - target: {fileID: -9168086230025207438, guid: 41249315eaf17d240a390da7784f7dfc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c35f60ad790e07a4caa87a38fa567064, type: 2}
     - target: {fileID: -8679921383154817045, guid: 41249315eaf17d240a390da7784f7dfc,
         type: 3}
       propertyPath: m_RootOrder
@@ -462,11 +468,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8298461752237713025, guid: 41249315eaf17d240a390da7784f7dfc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c35f60ad790e07a4caa87a38fa567064, type: 2}
+    - target: {fileID: 812947928087963621, guid: 41249315eaf17d240a390da7784f7dfc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c35f60ad790e07a4caa87a38fa567064, type: 2}
     - target: {fileID: 919132149155446097, guid: 41249315eaf17d240a390da7784f7dfc,
         type: 3}
       propertyPath: m_Name
       value: Monster_01
       objectReference: {fileID: 0}
+    - target: {fileID: 4525449429480767757, guid: 41249315eaf17d240a390da7784f7dfc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 36b2d27209170da4aa6f361e21f5ffbb, type: 2}
+    - target: {fileID: 7594363737567831819, guid: 41249315eaf17d240a390da7784f7dfc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c35f60ad790e07a4caa87a38fa567064, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41249315eaf17d240a390da7784f7dfc, type: 3}
 --- !u!4 &2563408801046596797 stripped
