@@ -343,6 +343,7 @@ MonoBehaviour:
   firePosL: {fileID: 1157056660120849536}
   firePosR: {fileID: 8073626120930188796}
   BulletObj2: {fileID: 0}
+  MonAttackEffect: {fileID: 0}
   BossBullet: {fileID: 2351248335731358326, guid: c3c5ef0b87fcca445adc78a78a6acec1,
     type: 3}
   DistEps: 15
@@ -367,7 +368,7 @@ MonoBehaviour:
   - {fileID: 0}
   Track_02: []
   Track_03: []
-  monsterType: 1
+  monsterType: 2
   monsterAttack: 0
   player: {fileID: 0}
   speed: 5

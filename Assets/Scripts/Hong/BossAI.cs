@@ -35,24 +35,28 @@ public class BossAI : MonoBehaviour, IHit
     public GameObject BossBullet2;
     public GameObject BossBullet3;
 
-    public float bulletSpeed;
+    public float bulletSpeed = 5f;
     public Transform firePos;
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         Patrol();
+        //MonBullet_02();
     }
     float ElapsedTime;
     void Update()
     {
+        if(hp <= ((hp * 25 ) / 100 ) && UseBullet_5)
+        {
+            //animator.SetTrigger("Attack_04");
+        }
         ElapsedTime += Time.deltaTime;
         if (hp > 0)
         {
             if ( ElapsedTime >= GlobalDelay )
             {
                 ElapsedTime = 0f;
-                animator.SetTrigger("Attack");
                 Attack();
             }
             if (isMove)
@@ -64,7 +68,8 @@ public class BossAI : MonoBehaviour, IHit
                     Patrol();   
                     return;
                 }
-                transform.forward = destination;
+                transform.LookAt(destination);
+                //transform.forward = destination;
                 transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
             }
         }
@@ -79,8 +84,82 @@ public class BossAI : MonoBehaviour, IHit
     bool IsArrival;
     void Attack()
     {
+        isMove = false;
+        transform.forward = player.transform.position;
+        if (hp > ((hp * 50) / 100))
+        {
+            int random = Random.Range(1, 3);
+            switch(random)
+            {
+                case 1:
+                    animator.SetTrigger("Attack_01");
+                    BossBullet_01();
+                    break;
+                case 2:
+                    animator.SetTrigger("Attack_02");
+                    MonBullet_02();
+                    break;
+            }
+        }
+        else if(hp <= ((hp * 50) / 100) && hp > ((hp * 25) / 100))
+        {
+            int random = Random.Range(1, 4);
+            switch(random)
+            {
+                case 1:
+                    animator.SetTrigger("Attack_01");
+                    BossBullet_01();
+                    break;
+                case 2:
+                    animator.SetTrigger("Attack_02");
+                    MonBullet_02();
+                    break;
+                case 3:
+                    animator.SetTrigger("Attack_02");
+                    BossBullet_02();
+                    break;
+            }
+                
+        }
+        else
+        {
+            int random = Random.Range(1, 5);
+            switch (random)
+            {
+                case 1:
+                    animator.SetTrigger("Attack_01");
+                    BossBullet_01();
+                    break;
+                case 2:
+                    animator.SetTrigger("Attack_02");
+                    MonBullet_02();
+                    break;
+                case 3:
+                    animator.SetTrigger("Attack_02");
+                    BossBullet_02();
+                    break;
+                case 4:
+                    animator.SetTrigger("Attack_03");
+                    BossBullet_03();
+                    break;
+            }
+        }
+    }
+    public void BossBullet_05()
+    {
+        UseBullet_5 = false;
 
-        CanAttack = false;
+
+    }
+    public GameObject MonBullet_2;
+    public void MonBullet_02()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            firePos.localEulerAngles = new Vector3(0, 45 - (i * 22.5f), 0);
+            MonBullet_01(MonBullet_2);
+        }
+        firePos.localEulerAngles = Vector3.zero;
     }
     public void SetDestination()
     {
@@ -151,7 +230,7 @@ public class BossAI : MonoBehaviour, IHit
             }
         }
     }
-    bool CanAttack = true;
+    bool UseBullet_5 = true;
     [Range(0,100)]
     public float GlobalDelay;
     public void Patrol()
@@ -181,7 +260,7 @@ public class BossAI : MonoBehaviour, IHit
     }
     public void BossBullet_01()
     {
-
+        MonBullet_01(BossBullet1);
     }
     public void BossBullet_02()
     {
@@ -207,7 +286,7 @@ public class BossAI : MonoBehaviour, IHit
         {
             firePos.localEulerAngles = new Vector3(0, 60 - (i * 15), 0);
             MonBullet_01(BossBullet2);
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(.2f);
         }
         firePos.localEulerAngles = Vector3.zero;
         yield return null;

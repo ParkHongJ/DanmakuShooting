@@ -231,6 +231,9 @@ public class EnemyAI : AttackPattern, IHit
             case AI_ENEMY_ATTACK.MonBullet_04:
                 MonBullet_04();
                 break;
+            case AI_ENEMY_ATTACK.MonAttack_05:
+                MonAttack_01();
+                break;
             case AI_ENEMY_ATTACK.BossBullet_02:
                 BossBullet_02();
                 break;
@@ -274,30 +277,6 @@ public class EnemyAI : AttackPattern, IHit
             MonBullet_01(MonBullet_2);
         }
         firePos.localEulerAngles = Vector3.zero;
-
-        //GameObject[] bullet = new GameObject[5];
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    bullet[i] = Instantiate(BulletObj);
-        //    bullet[i].SetActive(true);
-        //}
-        //bullet[0].transform.position = firePosL.position;
-        //bullet[1].transform.position = firePosLL.position;
-        //bullet[2].transform.position = firePos.position;
-        //bullet[3].transform.position = firePosR.position;
-        //bullet[4].transform.position = firePosRR.position;
-
-        //bullet[0].transform.rotation = firePosL.localRotation;
-        //bullet[1].transform.rotation = firePosLL.localRotation;
-        //bullet[2].transform.rotation = firePos.localRotation;
-        //bullet[3].transform.rotation = firePosR.localRotation;
-        //bullet[4].transform.rotation = firePosRR.localRotation;
-
-        //bullet[0].GetComponent<Rigidbody>().AddForce(firePosL.forward * bulletSpeed, ForceMode.Impulse);
-        //bullet[1].GetComponent<Rigidbody>().AddForce(firePosLL.forward * bulletSpeed, ForceMode.Impulse);
-        //bullet[2].GetComponent<Rigidbody>().AddForce(firePos.forward * bulletSpeed, ForceMode.Impulse);
-        //bullet[3].GetComponent<Rigidbody>().AddForce(firePosR.forward * bulletSpeed, ForceMode.Impulse);
-        //bullet[4].GetComponent<Rigidbody>().AddForce(firePosRR.forward * bulletSpeed, ForceMode.Impulse);
     }
     public GameObject BulletObj2;
     public void MonBullet_03()
@@ -333,9 +312,16 @@ public class EnemyAI : AttackPattern, IHit
         //bullet.transform.position = firePos.position;
         //bullet.GetComponent<tempBullet>().SetTargetAndFirepos(playerTransform, firePos);
     }
+    public GameObject MonAttackEffect;
     public void MonAttack_01()
     {
+        GameObject moneffect = Instantiate(MonAttackEffect);
+        moneffect.transform.position = transform.position;
+        moneffect.SetActive(true);
+        animator.SetTrigger("Death");
 
+
+        Destroy(gameObject);
     }
 
     public void BossBullet_02()

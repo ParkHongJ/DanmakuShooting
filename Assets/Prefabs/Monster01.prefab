@@ -254,7 +254,7 @@ MonoBehaviour:
   range: 0
   damage: 0
   CurrentState: 1
-  CurrentAttack: 6
+  CurrentAttack: 9
   hp: 0
   Waypoints:
   - {fileID: 0}
@@ -275,6 +275,8 @@ MonoBehaviour:
   firePosL: {fileID: 3279065340248985133}
   firePosR: {fileID: 5585708483334709073}
   BulletObj2: {fileID: 0}
+  MonAttackEffect: {fileID: 1125042567599642, guid: d6c77c7f90e392e4fae578e4c866e01a,
+    type: 3}
   BossBullet: {fileID: 0}
   DistEps: 3
 --- !u!1 &6343791449873327361
