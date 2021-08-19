@@ -57,6 +57,7 @@ public class Player_Skill_00 : MonoBehaviour, IPlayer_Skill
         Player pl;
 
 
+
         if (hit.TryGetComponent<IHit>(out hit2))
         {
             hit2.GetDamaged(Damage, 0); // 데미지 주기

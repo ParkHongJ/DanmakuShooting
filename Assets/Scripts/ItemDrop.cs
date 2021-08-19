@@ -19,7 +19,7 @@ public static class UnityObjectExtensions
         return obj;
     }
 }
-public class ItemDrop : MonoBehaviour
+public class ItemDrop : MonoBehaviour, IHit
 {
     public int hp;
     public bool isdead;
@@ -162,6 +162,8 @@ public class ItemDrop : MonoBehaviour
             if (tag == "Stove")
                 Breaking();
             isdead = false;
+
+            gameObject.GetComponent<ItemDrop>().enabled = false;
         }
 
     }

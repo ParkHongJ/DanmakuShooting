@@ -118,6 +118,7 @@ public class Player : MonoBehaviour, IHit
 
         if (isMovable) // 움직일 수 있는지 체크
         {
+            
             if (playerCamera != null)
                 controller.Move(Quaternion.Euler(0, playerCamera.transform.rotation.eulerAngles.y, 0) * new Vector3(moveX, 0, moveZ) * Time.deltaTime * moveSpeed);
             else
