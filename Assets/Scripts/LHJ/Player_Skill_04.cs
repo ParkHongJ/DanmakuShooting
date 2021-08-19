@@ -5,7 +5,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
 public class Player_Skill_04 : MonoBehaviour, IPlayer_Skill
-{
+{ // 레이저 빔
     private LineRenderer LineRender;
 
     public float Damage = 1.0f;
@@ -47,14 +47,27 @@ public class Player_Skill_04 : MonoBehaviour, IPlayer_Skill
         {
             LineRender.SetPosition(0, this.transform.position);
             LineRender.SetPosition(1, hit.point);
+
+            if (hit.collider.CompareTag("Player"))
+                return;
+
             if (hit.collider.gameObject.TryGetComponent<IHit>(out hit2))
             {
-                Debug.LogFormat("{0} Dmaged {1}", hit.collider.gameObject.name, Damage);
+                //Debug.LogFormat("{0} Damaged {1}", hit.collider.gameObject.name, Damage);
                 hit2.GetDamaged(Damage, 0);
                 if (Owner != null && Owner.TryGetComponent<Player>(out pl))
                     pl.lastEnemy = hit.collider.gameObject;
             }
-            //Debug.DrawRay(transform.position, (transform.TransformDirection(Vector3.forward) * hit.distance), Color.yellow, 1000.0f);
+            else if (hit.collider.gameObject.transform.parent != null)
+            {
+                if (hit.collider.gameObject.transform.parent.TryGetComponent<IHit>(out hit2))
+                {
+                    //Debug.LogFormat("{0} Damaged {1}", hit.collider.gameObject.name, Damage);
+                    hit2.GetDamaged(Damage, 0);
+                    if (Owner != null && Owner.TryGetComponent<Player>(out pl))
+                        pl.lastEnemy = hit.collider.gameObject;
+                }
+            }
         }
         else
         {

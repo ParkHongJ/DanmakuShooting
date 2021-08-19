@@ -48,20 +48,14 @@ public class Player_Skill_00 : MonoBehaviour, IPlayer_Skill
 
     private void OnTriggerEnter(Collider hit)
     {
-        if (hit.tag == "Player")
+        if (hit.CompareTag("Player"))
+            return;
+        if (hit.CompareTag("Bullet"))
             return;
         IHit hit2;
         IPlayer_Skill ps;
         Player pl;
-        if (hit.CompareTag("Bullet"))
-            return;
-        // ------
-        //hit2 = hit.GetComponentInParent<IHit>();
-        //if(hit2 != null)
-        //{
-        //    hit2.GetDamaged(Damage);
-        //}
-        // ------
+
 
         if (hit.TryGetComponent<IHit>(out hit2))
         {
@@ -69,8 +63,17 @@ public class Player_Skill_00 : MonoBehaviour, IPlayer_Skill
             if (Owner != null && Owner.TryGetComponent<Player>(out pl))
                 pl.lastEnemy = hit.gameObject;
         }
+        else if (hit.transform.parent != null)
+        {
+            if (hit.transform.parent.TryGetComponent<IHit>(out hit2))
+            {
+                hit2.GetDamaged(Damage, 0); // 데미지 주기
+                if (Owner != null && Owner.TryGetComponent<Player>(out pl))
+                    pl.lastEnemy = hit.gameObject;
+            }
+        }
 
-      Quaternion rot = Quaternion.FromToRotation(Vector3.up, hit.transform.forward);
+        Quaternion rot = Quaternion.FromToRotation(Vector3.up, hit.transform.forward);
         Vector3 pos = this.transform.position;
 
         if (hitPrefab != null)

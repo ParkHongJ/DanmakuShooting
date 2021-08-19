@@ -424,7 +424,7 @@ public class Player : MonoBehaviour, IHit
 
     public void GetDamaged(float damaged, int Type)
     {
-        throw new System.NotImplementedException();
+        Damaged(damaged);
     }
 
     public void GetDamaged(float damaged)
