@@ -13,6 +13,7 @@ public class Player_Skill_04 : MonoBehaviour, IPlayer_Skill
     public float Delay = 0.25f;
     public float LiveTime = 2.0f;
     public GameObject Owner = null;
+    public GameObject Effect = null;
 
     // Start is called before the first frame update
     void Start()
@@ -30,11 +31,21 @@ public class Player_Skill_04 : MonoBehaviour, IPlayer_Skill
         {
             LineRender.SetPosition(0, this.transform.position);
             LineRender.SetPosition(1, hit.point);
+            if(Effect != null)
+            {
+                Effect.SetActive(true);
+                Effect.transform.position = hit.point;
+                Effect.transform.rotation = Quaternion.LookRotation(hit.normal);
+            }
         }
         else
         {
             LineRender.SetPosition(0, this.transform.position);
             LineRender.SetPosition(1, transform.position + (transform.TransformDirection(Vector3.forward) * Distance));
+            if (Effect != null)
+            {
+                Effect.SetActive(false);
+            }
         }
     }
 

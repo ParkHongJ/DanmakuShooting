@@ -241,29 +241,42 @@ public class Interaction : MonoBehaviour
                 return true;
             case 2:
                 SetSkillIcon(skill1,2);
-                Player_s.SetAttack1_type(1);
+                Player_s.SetAttack1_type(0);
+                if (Player_s.GetStartSkillSetting() == true)
+                    Player_s.SetStartSkillSetting();
                 return true;
             case 3:
                 SetSkillIcon(skill1, 3);
-                Player_s.SetAttack1_type(2);
+                Player_s.SetAttack1_type(1);
+                if (Player_s.GetStartSkillSetting() == true)
+                    Player_s.SetStartSkillSetting();
                 return true;
             case 4:
                 SetSkillIcon(skill1, 4);
-                Player_s.SetAttack1_type(3);
+                Player_s.SetAttack1_type(2);
+                if (Player_s.GetStartSkillSetting() == true)
+                    Player_s.SetStartSkillSetting();
                 return true;
             case 5:
                 SetSkillIcon(skill2, 5);
-                Player_s.SetAttack2_type(11);
+                Player_s.SetAttack2_type(3);
+                if (Player_s.GetStartSkillSetting() == true)
+                    Player_s.SetStartSkillSetting();
                 return true;
             case 6:
                 SetSkillIcon(skill2, 6);
-                Player_s.SetAttack2_type(12);
+                Player_s.SetAttack2_type(4);
+                if (Player_s.GetStartSkillSetting() == true)
+                    Player_s.SetStartSkillSetting();
                 return true;
             case 7:
                 SetSkillIcon(skill2, 7);
-                Player_s.SetAttack2_type(13);
+                Player_s.SetAttack2_type(5);
+                if (Player_s.GetStartSkillSetting() == true)
+                    Player_s.SetStartSkillSetting();
                 return true;
         }
+
         return false;
 
     }
