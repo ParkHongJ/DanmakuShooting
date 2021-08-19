@@ -267,6 +267,7 @@ MonoBehaviour:
   firePosR: {fileID: 1239783272413329068}
   BulletObj2: {fileID: 6071388002575257656, guid: 6652e8877ca62644ea2d4f90b38d89b3,
     type: 3}
+  MonAttackEffect: {fileID: 0}
   BossBullet: {fileID: 0}
   DistEps: 15
 --- !u!1 &1160384327847629596

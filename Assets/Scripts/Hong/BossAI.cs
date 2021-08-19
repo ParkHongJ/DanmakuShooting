@@ -84,6 +84,10 @@ public class BossAI : MonoBehaviour, IHit
     bool IsArrival;
     void Attack()
     {
+        if(player == null)
+        {
+            return;
+        }
         isMove = false;
         transform.forward = player.transform.position;
         if (hp > ((hp * 50) / 100))

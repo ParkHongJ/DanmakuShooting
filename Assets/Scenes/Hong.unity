@@ -1203,12 +1203,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7128447360369422453, guid: 108b9eb0885981c48ae0b765fa0b90b8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 108b9eb0885981c48ae0b765fa0b90b8, type: 3}
---- !u!4 &1108400192 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2246146657921742374, guid: 88cee02755ee72a4bb54fbac9acaf3e5,
-    type: 3}
-  m_PrefabInstance: {fileID: 7348205184200603690}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1410602130
 GameObject:
   m_ObjectHideFlags: 0
@@ -1934,12 +1928,14 @@ MonoBehaviour:
   playerCamera: {fileID: 0}
   firePos: {fileID: 0}
   teleEffect: {fileID: 0}
-  flashCoolTime: {fileID: 0}
   lastEnemy: {fileID: 0}
   isAlive: 1
+  isInvincible: 0
   isMovable: 1
   isAttackable: 1
   canFlash: 1
+  coolskill1: {fileID: 0}
+  coolskill2: {fileID: 0}
   skillDamage:
   - 1
   - 1
@@ -2012,11 +2008,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monster1
       objectReference: {fileID: 0}
-    - target: {fileID: 6343791449517431936, guid: e2df7f61a2bd93346ba8fce9e32c2049,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6343791449517431942, guid: e2df7f61a2bd93346ba8fce9e32c2049,
         type: 3}
       propertyPath: m_RootOrder
@@ -2074,11 +2065,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7579065935380153496, guid: e2df7f61a2bd93346ba8fce9e32c2049,
         type: 3}
-      propertyPath: DistEps
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7579065935380153496, guid: e2df7f61a2bd93346ba8fce9e32c2049,
-        type: 3}
       propertyPath: Waypoints.Array.data[0]
       value: 
       objectReference: {fileID: 413134389}
@@ -2115,11 +2101,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Monster2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3881022565575447531, guid: 59f033dbd1b630c4ab653e6c40d3e1d2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3881022565575447533, guid: 59f033dbd1b630c4ab653e6c40d3e1d2,
         type: 3}
@@ -2245,11 +2226,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monster3
       objectReference: {fileID: 0}
-    - target: {fileID: 340400701178017149, guid: bcff391fad55bff438fb9dc1cf528f3d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3863723735441665381, guid: bcff391fad55bff438fb9dc1cf528f3d,
         type: 3}
       propertyPath: Waypoints.Array.data[0]
@@ -2360,27 +2336,6 @@ PrefabInstance:
       objectReference: {fileID: 1943171985}
     - target: {fileID: 35071620372932104, guid: 88cee02755ee72a4bb54fbac9acaf3e5,
         type: 3}
-      propertyPath: firePos
-      value: 
-      objectReference: {fileID: 1108400192}
-    - target: {fileID: 35071620372932104, guid: 88cee02755ee72a4bb54fbac9acaf3e5,
-        type: 3}
-      propertyPath: GlobalDelay
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 35071620372932104, guid: 88cee02755ee72a4bb54fbac9acaf3e5,
-        type: 3}
-      propertyPath: MonBullet_2
-      value: 
-      objectReference: {fileID: 1961964258596952, guid: ba44394998abfd74691113457d3c133f,
-        type: 3}
-    - target: {fileID: 35071620372932104, guid: 88cee02755ee72a4bb54fbac9acaf3e5,
-        type: 3}
-      propertyPath: bulletSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 35071620372932104, guid: 88cee02755ee72a4bb54fbac9acaf3e5,
-        type: 3}
       propertyPath: Track_01.Array.data[0]
       value: 
       objectReference: {fileID: 322309995}
@@ -2399,21 +2354,6 @@ PrefabInstance:
       propertyPath: Track_01.Array.data[3]
       value: 
       objectReference: {fileID: 648983054}
-    - target: {fileID: 2246146657921742374, guid: 88cee02755ee72a4bb54fbac9acaf3e5,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2246146657921742374, guid: 88cee02755ee72a4bb54fbac9acaf3e5,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2246146657921742374, guid: 88cee02755ee72a4bb54fbac9acaf3e5,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6098265575754024501, guid: 88cee02755ee72a4bb54fbac9acaf3e5,
         type: 3}
       propertyPath: Waypoints.Array.data[0]

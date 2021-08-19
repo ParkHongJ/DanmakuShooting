@@ -165,5 +165,14 @@ public class ItemDrop : MonoBehaviour
         }
 
     }
+    public void GetDamaged(float damaged, int Type)
+    {
+        hp -= (int)damaged;
+    }
+
+    public void GetDamaged(float damaged)
+    {
+        hp -= (int)damaged;
+    }
 }
 

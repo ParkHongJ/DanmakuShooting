@@ -278,7 +278,7 @@ MonoBehaviour:
   MonAttackEffect: {fileID: 1125042567599642, guid: d6c77c7f90e392e4fae578e4c866e01a,
     type: 3}
   BossBullet: {fileID: 0}
-  DistEps: 3
+  DistEps: 10
 --- !u!1 &6343791449873327361
 GameObject:
   m_ObjectHideFlags: 0
