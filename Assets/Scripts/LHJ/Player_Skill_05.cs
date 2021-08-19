@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_Skill_05 : MonoBehaviour, IPlayer_Skill
-{
+{ // 폭발 공격
     public float Height = 1.5f;
     public float Radius = 3f;
     public float Damage = 1.0f;
@@ -13,7 +13,7 @@ public class Player_Skill_05 : MonoBehaviour, IPlayer_Skill
     // Start is called before the first frame update
     void Start()
     {
-        Attack();
+        Invoke("Attack",0.1f);
         Death();
     }
 
@@ -30,12 +30,25 @@ public class Player_Skill_05 : MonoBehaviour, IPlayer_Skill
         Player pl;
         foreach (Collider hit in colliders)
         {
+            if (hit.CompareTag("Player"))
+                continue;
             if (hit.TryGetComponent<IHit>(out hit2))
             {
-                Debug.LogFormat("{0} Dmaged {1}", hit.name, Damage);
+                //Debug.LogFormat("{0} Dmaged {1}", hit.name, Damage);
                 hit2.GetDamaged(Damage, 0);
                 if (Owner != null && Owner.TryGetComponent<Player>(out pl))
                     pl.lastEnemy = hit.gameObject;
+
+            }
+            else if (hit.transform.parent != null)
+            {
+                if (hit.transform.parent.TryGetComponent<IHit>(out hit2))
+                {
+                    //Debug.LogFormat("{0} Dmaged {1}", hit.name, Damage);
+                    hit2.GetDamaged(Damage, 0);
+                    if (Owner != null && Owner.TryGetComponent<Player>(out pl))
+                        pl.lastEnemy = hit.gameObject;
+                }
             }
         }
     }

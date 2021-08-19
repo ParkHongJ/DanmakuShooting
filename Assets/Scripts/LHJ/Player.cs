@@ -18,24 +18,31 @@ public class Player : MonoBehaviour, IHit
     public GameObject playerCamera = null;
     public Transform firePos = null; // 발사 위치
     public GameObject teleEffect = null;
+    public UnityEngine.UI.Image flashCoolTime = null;
     public GameObject lastEnemy = null;
     public bool isAlive = true; // 살아있는가
     public bool isMovable = true; // 움직일 수 있는가
     public bool isAttackable = true; // 공격
     public bool canFlash = true; // 점멸 가능한가
 
+    [Tooltip("스킬 데미지")]
     public float[] skillDamage = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
 
     //private float viewX, viewY, viewZ; // 보는 방향
     private float moveX, moveZ; // 이동 값
 
+    [Tooltip("총알 프리팹")]
     public GameObject[] bullet; // 0 1 2 3 4 5
 
     [SerializeField]
     [Tooltip("체력")]
     private float hp = 100; // 체력
+    [SerializeField]
+    [Tooltip("포션 개수")]
     private int potion = 0; // 포션 개수
+    [Tooltip("공격 1 타입")]
     public int attack1_type = 0; // 공격 타입
+    [Tooltip("공격 2 타입")]
     public int attack2_type = 0; // 공격 타입
 
     void Start() // 초기 설정
@@ -52,6 +59,13 @@ public class Player : MonoBehaviour, IHit
         canFlash = true; // 점멸중인가?
         isMovable = true; // 움직일 수 있는가
         isAttackable = true; // 공격
+        if(flashCoolTime != null)
+        {
+            flashCoolTime.type = UnityEngine.UI.Image.Type.Filled;
+            flashCoolTime.fillMethod = UnityEngine.UI.Image.FillMethod.Radial360;
+            flashCoolTime.fillOrigin = (int)UnityEngine.UI.Image.Origin360.Top;
+            flashCoolTime.fillClockwise = false;
+        }
     }
 
     void FixedUpdate() // 물리 관련
@@ -70,6 +84,10 @@ public class Player : MonoBehaviour, IHit
 
     void Update() // 체크
     {
+        if (flashCoolTime != null)
+        {
+            flashCoolTime.fillAmount = 2;
+        }
         if (isAlive)
         {
             if (hp <= 0) // 체력이 없으면
@@ -179,29 +197,29 @@ public class Player : MonoBehaviour, IHit
         {
             // Attack1 - FirePos에서 발사
             case 0: // 바위 발사
-                Attack1(_index, 0.25f, 1.0f);
+                Attack1(_index, 0.25f, skillDamage[_index]);
                 break;
             case 3: // 화염구
-                Attack1(_index, 0.25f, 1.0f);
+                Attack1(_index, 0.25f, skillDamage[_index]);
                 break;
 
 
             // Attack2 - FirePos위치 바닥부터 발사
             case 1: // 가시 공격
-                Attack2(_index, 0.5f, 1.0f);
+                Attack2(_index, 0.5f, skillDamage[_index]);
                 break;
 
             // Attack3 - 마우스 지점에서 생성
             case 2: // 모래 늪
-                Attack3(_index, 0.75f, 1.0f);
+                Attack3(_index, 0.75f, skillDamage[_index]);
                 break;
             case 5: // 폭발
-                Attack3(_index, 0.75f, 1.0f);
+                Attack3(_index, 0.75f, skillDamage[_index]);
                 break;
 
             // Attack4 - 토글식
             case 4: // 빔
-                StartCoroutine(Attack4(_index, 0.5f, 1.0f, 2.0f));
+                StartCoroutine(Attack4(_index, 0.5f, skillDamage[_index], 2.0f));
                 break;
         }
         if (_index != 4)
@@ -244,18 +262,10 @@ public class Player : MonoBehaviour, IHit
 
         if (GroupPlane.Raycast(cameraRay, out rayLength))
         {
-            Vector3 pointTolook = cameraRay.GetPoint(rayLength);
-            if (pointTolook.x >= this.transform.position.x + attack2Range)
-                pointTolook.x = this.transform.position.x + attack2Range;
-            if (pointTolook.z >= this.transform.position.z + attack2Range)
-                pointTolook.z = this.transform.position.z + attack2Range;
-            if (pointTolook.x <= this.transform.position.x - attack2Range)
-                pointTolook.x = this.transform.position.x - attack2Range;
-            if (pointTolook.z <= this.transform.position.z - attack2Range)
-                pointTolook.z = this.transform.position.z - attack2Range;
+            Vector3 pointTolook = Vector3.ClampMagnitude(cameraRay.GetPoint(rayLength) - this.transform.position, 10.0f); // 사정거리 제한
 
             //Debug.LogFormat("{0},{1},{2}", pointTolook.x, pointTolook.y, pointTolook.z);
-            obj = Instantiate(bullet[_index], pointTolook, firePos.transform.rotation);
+            obj = Instantiate(bullet[_index], pointTolook + this.transform.position, firePos.transform.rotation);
             obj.GetComponent<IPlayer_Skill>().setDamage(_damage);
             obj.GetComponent<IPlayer_Skill>().setOwner(this.gameObject);
         }
@@ -424,7 +434,7 @@ public class Player : MonoBehaviour, IHit
 
     public void GetDamaged(float damaged, int Type)
     {
-        throw new System.NotImplementedException();
+        Damaged(damaged);
     }
 
     public void GetDamaged(float damaged)

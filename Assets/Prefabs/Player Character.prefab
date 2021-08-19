@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 494693327083467315}
   m_Layer: 0
   m_Name: TeleEffect
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 7732077076533120818}
   m_Layer: 0
   m_Name: Bip001
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -642,7 +642,7 @@ GameObject:
   - component: {fileID: 7732077076931012980}
   m_Layer: 0
   m_Name: Body_01
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1460,7 +1460,7 @@ GameObject:
   - component: {fileID: 7732077077873368029}
   m_Layer: 0
   m_Name: Body_00
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1862,7 +1862,7 @@ GameObject:
   - component: {fileID: 7732077078266220801}
   m_Layer: 0
   m_Name: FirePos
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1875,7 +1875,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7732077078266220802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.105, z: 0.077}
+  m_LocalPosition: {x: 0, y: 0.11, z: 0.075}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7732077078337276499}
@@ -2026,7 +2026,7 @@ MonoBehaviour:
   - {fileID: 8304804325415651043, guid: c6d15cd0e71e646449b6e204c627bea3, type: 3}
   hp: 100
   attack1_type: 0
-  attack2_type: 0
+  attack2_type: 4
 --- !u!135 &1928763576
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2047,7 +2047,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7732077078337276511}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af8a40aea2974d54dae806ae6ea8c473, type: 3}
   m_Name: 
@@ -2062,6 +2062,7 @@ MonoBehaviour:
   iteminforUI: {fileID: 0}
   enter_item: {fileID: 0}
   item_infor_text: {fileID: 0}
+  Player_s: {fileID: 0}
 --- !u!1 &7732077078344417043
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,7 +2105,7 @@ GameObject:
   - component: {fileID: 7732077078383558059}
   m_Layer: 0
   m_Name: Body_02
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

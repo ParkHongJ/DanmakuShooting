@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_Skill_01 : MonoBehaviour, IPlayer_Skill
-{
+{ // 가시 소환
     public float Delay = 0.3f;
     public int Count = 5;
     public float Distance = 2.0f;

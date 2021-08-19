@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 2824736478203122076}
   - component: {fileID: 2824736478198768124}
   m_Layer: 0
-  m_Name: Rock2
+  m_Name: Spike
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
